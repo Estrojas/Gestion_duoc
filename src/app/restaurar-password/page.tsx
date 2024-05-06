@@ -1,7 +1,7 @@
 "use client";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Link from 'next/Linkss';
+import Link from 'next/link';
 
 export default function RestorePage() {
 
