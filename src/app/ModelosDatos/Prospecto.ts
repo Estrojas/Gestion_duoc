@@ -1,11 +1,12 @@
 export interface Prospecto {
-    rut: number;
+    rut: number | null;
     dv: string;
     nombre: string;
     apellido: string;
     correo: string;
-    telefono: number;
+    telefono: number | null;
     tipoAdmision: string;
+    carreraInteres: Array<string>;
     estado: 'pendiente' | 'Matriculado' | 'No matriculado'/*string;*/
     atendidoPor: number;
     observacion: string;

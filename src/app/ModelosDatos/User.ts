@@ -1,14 +1,14 @@
 // User.ts
 
 export interface User {
-    rut: number;
+    rut: number | null;
     dv: string;
     correo: string;
     password: string;
     nombre: string;
     apellido: string;
     rol: 'Administrativo' | 'Ayudante' |'';
-    telefono: number;
+    telefono: number | null;
   }
 
   export function verifyRut(user: User): boolean {

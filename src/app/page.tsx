@@ -5,19 +5,21 @@ import { createClient } from '@supabase/supabase-js';
 import { useState } from 'react'; // Importa useState de react
 import Link from 'next/link';
 import Swal from 'sweetalert2'
-import  { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
-const supabase = createClient('https://knqqlgyngkipshrlcoms.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtucXFsZ3luZ2tpcHNocmxjb21zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQyNDgxOTQsImV4cCI6MjAyOTgyNDE5NH0.F5RNdW8tPyc_l-gjECVawgdyxUPr057uNLdl9If1kio')
+const supabaseUrl = 'https://pmuoxymxmexmjrpuwiuq.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBtdW94eW14bWV4bWpycHV3aXVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQwNjY5ODcsImV4cCI6MjAyOTY0Mjk4N30.ZXxrLp3Vs6uulEe96ITrN0Vty1PtxzCOAnLJ7ZOQ8qU';
+const supabase = createClient(supabaseUrl, supabaseKey);
 export default function LoginPage() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
-  const handleLogin = async (event : any) => {
+  const handleLogin = async (event: any) => {
     event.preventDefault();
-    
+
     try {
-      const { data,error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
@@ -31,7 +33,7 @@ export default function LoginPage() {
         });
       } else {
         console.log('Usuario autenticado:', data.user);
-        localStorage.setItem('ID' , data.user.id)
+        localStorage.setItem('ID', data.user.id)
         router.push('/home');
       }
     } catch (error) {
@@ -44,7 +46,7 @@ export default function LoginPage() {
       <div className="flex min-h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8" style={{ backgroundImage: 'url("img/background-login.jpg")', backgroundSize: 'cover', backgroundPosition: 'center center', backgroundColor: '#666' }}>
         <div className="mx-auto">
           <div className="card p-3 b" style={{ width: '26rem' }} >
-            <img src="img/logo-duoc-sin-bg.png" className="card-img-top"  alt="Logo Duoc" />
+            <img src="img/logo-duoc-sin-bg.png" className="card-img-top" alt="Logo Duoc" />
             <h5 className="text-center fw-bold mt-2">
               Gestión de Prospectos Admisión
             </h5>
@@ -52,10 +54,10 @@ export default function LoginPage() {
               <form onSubmit={handleLogin}>
                 <div className="mb-3">
                   <label className="form-label">Correo Electrónico</label>
-                  <input type="email" className="form-control form-control-sm" required  value={email} onChange={(e) => setEmail(e.target.value)}  />
+                  <input type="email" className="form-control form-control-sm" required value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label">Contraseña</label> 
+                  <label className="form-label">Contraseña</label>
                   <input type="password" className="form-control form-control-sm" required value={password} onChange={(e) => setPassword(e.target.value)} />
                 </div>
                 <div className="d-grid gap-2">

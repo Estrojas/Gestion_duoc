@@ -1,57 +1,70 @@
 "use client";
-import React, { useState } from 'react';
-import { User } from '../ModelosDatos/User';
-import { ingresarUser } from '../Connection/SupabaseClient';
+import React, { useState } from "react";
+import { User, verifyRut } from "../ModelosDatos/User";
+import { ingresarUser, signup } from "../Connection/SupabaseClient";
 
 export default function CreateUserForm() {
   const [user, setUser] = useState<User>({
-    rut: 0,
-    dv: '',
-    correo: '',
-    password: '',
-    nombre: '',
-    apellido: '',
-    rol: '',
-    telefono: 0,
+    rut: null,
+    dv: "",
+    correo: "",
+    password: "",
+    nombre: "",
+    apellido: "",
+    rol: "",
+    telefono: null,
   });
 
   const [showModal, setShowModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState('');
-  
+  const [modalMessage, setModalMessage] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try{
-        const { data, error } = await ingresarUser(user);
+    if (!verifyRut(user)) {
+      setModalMessage("RUT inválido. Por favor, verifique el RUT ingresado.");
+      setShowModal(true);
+      return;
+    } else {
+      try {
+        const { data, error } = await signup(user);
         if (error) {
-            setModalMessage('Error al crear el usuario. Por favor, inténtelo de nuevo.');
+          setModalMessage(
+            "Error al crear el usuario. Por favor, inténtelo de nuevo."
+          );
+          setShowModal(true);
         } else {
-            setModalMessage('Usuario creado exitosamente.');
-            setUser({
-              rut: 0,
-              dv: '',
-              correo: '',
-              password: '',
-              nombre: '',
-              apellido: '',
-              rol: '',
-              telefono: 0,
-            });
+          setModalMessage("Usuario creado exitosamente.");
+          setShowModal(true);
+          setUser({
+            rut: null,
+            dv: "",
+            correo: "",
+            password: "",
+            nombre: "",
+            apellido: "",
+            rol: "",
+            telefono: null,
+          });
         }
-    } catch (error) {
-        console.error('Error creating user:', error);
-        setModalMessage('Error al crear el usuario. Por favor, inténtelo de nuevo.');
+      } catch (error) {
+        console.error("Error creating user:", error);
+        setModalMessage(
+          "Error al crear el usuario. Por favor, inténtelo de nuevo."
+        );
         setShowModal(true);
+      }
     }
   };
 
   const closeModal = () => {
     setShowModal(false);
-    setModalMessage('');
+    setModalMessage("");
   };
 
   return (
@@ -88,7 +101,7 @@ export default function CreateUserForm() {
               type="number"
               id="rut"
               name="rut"
-              value={user.rut}
+              value={user.rut || ""} // Usa un string vacío como valor de respaldo
               onChange={handleChange}
               className="w-full border border-gray-300 rounded-md py-2 px-3"
               required
@@ -189,7 +202,7 @@ export default function CreateUserForm() {
               type="number"
               id="telefono"
               name="telefono"
-              value={user.telefono}
+              value={user.telefono || ""} // Use empty string as fallback value
               onChange={handleChange}
               className="w-full border border-gray-300 rounded-md py-2 px-3"
               required
