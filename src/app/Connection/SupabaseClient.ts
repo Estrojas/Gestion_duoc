@@ -58,6 +58,13 @@ const supabase = createClient(supabaseUrl, supabaseKey);
     
       return { data: nombreCompleto, error: null };
     }
+    export async function obtenerUserRut(rut: number) {
+        const { data, error } = await supabase
+        .from('User')
+        .select('rut')
+        .eq('rut', rut);
+        return { data, error };
+    }
 
     export async function login(email: string, password: string){
       const { data, error } = await supabase

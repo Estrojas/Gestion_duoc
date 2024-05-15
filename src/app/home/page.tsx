@@ -62,8 +62,8 @@ export default function homePage() {
       }
     }
 
-    hacerLogin('cri.jimenez24@gmail.com', '13061975cC') 
-    signup(newUser);
+    //hacerLogin('cri.jimenez24@gmail.com', '13061975cC') 
+    //signup(newUser);
 
 
 

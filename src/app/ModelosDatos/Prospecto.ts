@@ -5,11 +5,10 @@ export interface Prospecto {
     apellido: string;
     correo: string;
     telefono: number | null;
-    tipoAdmision: string;
-    carreraInteres: Array<string>;
     estado: 'pendiente' | 'Matriculado' | 'No matriculado'/*string;*/
-    atendidoPor: number;
-    observacion: string;
+    matriculador: number;
+    aut_corr: boolean;
+    aut_tel: boolean;
 }
 /*rut
 digito verificador
