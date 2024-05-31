@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { User } from "../ModelosDatos/User";
 import { obtenerUser } from "../Connection/SupabaseClient";
+import { json } from "stream/consumers";
 
 
 export default function send_email(){
@@ -82,7 +83,8 @@ export default function send_email(){
             </form>
             <div>
                 <button onClick={async () => {
-                    const res = await fetch('api/send', { method: 'POST'},)
+                    const res = await fetch('api/send', { method: 'POST'
+                                                        },)
                     const data = await res.json()
                     console.log(data)
                 }}>

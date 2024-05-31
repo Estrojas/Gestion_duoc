@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { User, verifyRut } from "../ModelosDatos/User";
-import { obtenerUser, actualizarUser, obtenerUserRut } from "../Connection/SupabaseClient";
+import { User, verifyRut } from "../../ModelosDatos/User";
+import { obtenerUser, actualizarUser, obtenerUserRut } from "../../Connection/SupabaseClient";
 
 
 export default function UpdateUserForm() {
