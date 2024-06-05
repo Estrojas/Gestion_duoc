@@ -82,8 +82,8 @@ export default function UpdateUserForm() {
 
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-      <div className="bg-white rounded-lg shadow-md p-6 max-w-2xl w-full">
+    <div>
+      <div className="bg rounded-lg shadow-md p-6 max-w-2xl w-full">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">Modificar Usuario</h2>
           <button
@@ -117,7 +117,7 @@ export default function UpdateUserForm() {
               name="rut"
               value={user.rut || ""} // Usa un string vacío como valor de respaldo
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md py-2 px-3"
+              className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
               required
             />
             <button type="button"
@@ -136,7 +136,7 @@ export default function UpdateUserForm() {
               name="dv"
               value={user.dv}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md py-2 px-3"
+              className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
               required
             />
           </div>
@@ -150,7 +150,7 @@ export default function UpdateUserForm() {
               name="correo"
               value={user.correo}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md py-2 px-3"
+              className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
               required
             />
           </div>
@@ -164,7 +164,7 @@ export default function UpdateUserForm() {
               name="nombre"
               value={user.nombre}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md py-2 px-3"
+              className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
               required
             />
           </div>
@@ -178,7 +178,7 @@ export default function UpdateUserForm() {
               name="apellido"
               value={user.apellido}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md py-2 px-3"
+              className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
               required
             />
           </div>
@@ -191,7 +191,7 @@ export default function UpdateUserForm() {
               name="rol"
               value={user.rol}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md py-2 px-3"
+              className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
               required
             >
               <option value="">Selecciona un rol</option>
@@ -209,7 +209,7 @@ export default function UpdateUserForm() {
               name="telefono"
               value={user.telefono || ""} // Use empty string as fallback value
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md py-2 px-3"
+              className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
               required
             />
           </div>

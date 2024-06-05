@@ -34,7 +34,7 @@ export default function LoginPage() {
       } else {
         console.log('Usuario autenticado:', data.user);
         localStorage.setItem('ID', data.user.id)
-        router.push('/home');
+        router.push('/dashboard');
       }
     } catch (error) {
       console.error('Error de inicio de sesión:', error);

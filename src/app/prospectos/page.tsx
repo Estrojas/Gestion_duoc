@@ -79,6 +79,7 @@ const GestionProspectos = async () => {
                 className="w-full border border-gray-300 rounded-md py-2 px-3"
               >
                 <option value="Pendiente">Pendiente</option>
+                <option value="Matriculado">Matriculado</option>
                 {/* Agrega más opciones según tus necesidades */}
               </select>
             </div>
@@ -120,6 +121,18 @@ const GestionProspectos = async () => {
                   className="w-full border border-gray-300 rounded-md py-2 px-3"
                 />
               </div>
+              <div>
+                <label>
+                  Autorizo contactarme por Telefono
+                </label>
+                <input type="checkbox" id="autorizacionTelefono" name="autorizacionTelefono" value="autorizacionTelefono"/>
+              </div>
+              <div>
+                  <label>
+                    Autorizo contactarme por Email
+                  </label>
+                  <input type="checkbox" id="autorizacionEmail" name="autorizacionEmail" value="autorizacionEmail"/>
+                </div>
             </div>
             <div className="flex justify-end">
               <button
@@ -137,6 +150,8 @@ const GestionProspectos = async () => {
             </div>
           </form>
         </div>
+        <div>
+        {/* Aquí va la lista de prospectos
         <div className="bg-orange-500 p-4 rounded-md">
           <h2 className="text-white font-bold mb-4">Lista de Prospectos</h2>
           {prospectos.map((prospecto, index) => (
@@ -147,7 +162,7 @@ const GestionProspectos = async () => {
               <p>{prospecto.detalles}</p>
               <p>{prospecto.observaciones}</p>
             </div>
-          ))}
+          ))}*/}
         </div>
       </div>
     </div>

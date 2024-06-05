@@ -79,8 +79,8 @@ export default function CreateUserForm() {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-      <div className="bg-gray rounded-lg shadow-md p-6 max-w-2xl w-full">
+    <div className="">
+      <div className="bg-gray rounded-lg shadow-md p-6 max-w-2xl">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">Nuevo Usuario</h2>
           <button

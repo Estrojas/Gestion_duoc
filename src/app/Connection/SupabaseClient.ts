@@ -6,6 +6,8 @@ import { Prospecto } from '../ModelosDatos/Prospecto';
 
 const supabaseUrl = 'https://pmuoxymxmexmjrpuwiuq.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBtdW94eW14bWV4bWpycHV3aXVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQwNjY5ODcsImV4cCI6MjAyOTY0Mjk4N30.ZXxrLp3Vs6uulEe96ITrN0Vty1PtxzCOAnLJ7ZOQ8qU';
+
+
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 
@@ -29,6 +31,18 @@ const supabase = createClient(supabaseUrl, supabaseKey);
         .select('*');
         return { data, error };
     }
+    export async function obtenerNumeroUsers() {
+      const { data, error } = await supabase
+      .from('User')
+      .select('*');
+      console.log(data)
+      if(data){
+        return data.length;
+      }else{
+        return 0;
+      }
+      //return { data, error };
+  }
     export async function actualizarUser(user: User) {
         const { data, error } = await supabase
         .from('User')
@@ -114,6 +128,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
         const { data, error } = await supabase
         .from('Prospecto')
         .select('*');
+        console.log(data);
         return { data, error };
     }
     export async function obtenerAdmisionEspecial() {
@@ -160,5 +175,16 @@ const supabase = createClient(supabaseUrl, supabaseKey);
         }else{
             console.log(data);
             return {data, error};
+        }
+    }
+    export async function numeroDeProspectos(){
+        const { data, error } = await supabase
+        .from('Prospecto')
+        .select('*');
+        //console.log(data);
+        if(data){
+            return data.length;
+        }else{
+          return 0;
         }
     }
