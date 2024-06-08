@@ -15,7 +15,7 @@ const menuItems = [
         icon: <MdDashboard/>
       },
       {
-        title: "Prospectos",
+        title: "Formulario Prospectos",
         path: "/prospectos",
         icon: <MdBoy/>
       },
@@ -27,7 +27,7 @@ const menuItems = [
     list:[
       {
         title: "Usuarios",
-        path: "/usuarios",
+        path: "/dashboard/users",
         icon: <MdPerson/>
       },
       {
@@ -37,6 +37,27 @@ const menuItems = [
       },
       {
         title: "Modificar Usuario",
+        path: "/dashboard/upd-user/",
+        icon: <MdOutlinePersonSearch/>
+      },
+      
+    ]
+  },
+  {
+    title: "Prospectos",
+    list:[
+      {
+        title: "Ver Prospectos",
+        path: "/dashboard/prosp",
+        icon: <MdPerson/>
+      },
+      {
+        title: "Registrar Prospecto",
+        path: "/dashboard/registrar-user/",
+        icon: <MdOutlinePersonAdd/>
+      },
+      {
+        title: "Modificar Prospecto",
         path: "/dashboard/upd-user/",
         icon: <MdOutlinePersonSearch/>
       },
@@ -58,16 +79,6 @@ const menuItems = [
       },
       {
         title: "Carreras",
-        path: "/usuarios",
-        icon: <MdBoy/>
-      }
-    ]
-  },
-  {
-    title: "Configuración",
-    list:[
-      {
-        title: "Configuracion",
         path: "/usuarios",
         icon: <MdBoy/>
       }

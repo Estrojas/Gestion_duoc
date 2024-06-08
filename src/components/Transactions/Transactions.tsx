@@ -18,7 +18,6 @@ const Transactions = () => {
                 <tbody>
                     <tr>
                         <td>
-                            <Image className={styles.userImage} src="/img/noavatar.jpg" alt="" width="50" height="50"/>
                             Esteban Rojas
                         </td>
                         <td>
@@ -28,7 +27,6 @@ const Transactions = () => {
                     </tr>
                     <tr>
                         <td>
-                            <Image className={styles.userImage} src="/img/noavatar.jpg" alt="" width="50" height="50"/>
                             Cristian Jimenez
                         </td>
                         <td>
@@ -38,7 +36,6 @@ const Transactions = () => {
                     </tr>
                     <tr>
                         <td>
-                            <Image className={styles.userImage} src="/img/noavatar.jpg" alt="" width="50" height="50"/>
                             Jordano Tapia
                         </td>
                         <td>

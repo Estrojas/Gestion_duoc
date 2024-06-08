@@ -1,0 +1,6 @@
+.formulario{
+    grid-column: 2;
+    gap: 4;
+    display: grid;
+    padding: 10px;
+}

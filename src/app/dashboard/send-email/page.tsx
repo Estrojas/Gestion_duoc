@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
-import { User } from "../ModelosDatos/User";
-import { obtenerUser } from "../Connection/SupabaseClient";
+import { User } from "../../ModelosDatos/User";
+import { obtenerUser } from "../../Connection/SupabaseClient";
 import { json } from "stream/consumers";
-import { POST } from "../api/send/route";
-
+import { POST } from "../../api/send/route";
+import styles from "./send-email.module.css";
 export default function send_email() {
   const [user, setUser] = useState<User>({
     rut: null,
@@ -64,7 +64,7 @@ export default function send_email() {
             name="rut"
             value={user.rut || ""} // Usa un string vacío como valor de respaldo
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md py-2 px-3"
+            className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
             required
           />
           <button
@@ -74,10 +74,41 @@ export default function send_email() {
           >
             Buscar
           </button>
+          <label htmlFor="Correo" className="block font-medium mb-2">
+            Correo
+          </label>
+          <input
+            id="Correo"
+            name="correo"
+            value={user.correo}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
+            required
+            type="email"
+          />
+          <label htmlFor="Asunto" className="block font-medium mb-2">
+            Asunto
+          </label>
+          <input
+            id="Asunto"
+            name="asunto"
+            className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
+            required
+          />
+          <label htmlFor="Mensaje" className="block font-medium mb-2">
+            Mensaje
+          </label>
+          <textarea
+            id="Mensaje"
+            name="mensaje"
+            className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
+            placeholder="Escriba su mensaje aquí..."
+            required
+          ></textarea>
         </div>
       </form>
       <div>
-        <button
+        <button className={styles.enviar}
           onClick={async () => {
             const res = await fetch("api/send", { method: "POST" });
             const data = await res.json();

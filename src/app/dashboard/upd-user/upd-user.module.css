@@ -1,0 +1,13 @@
+.button{
+    padding: 10px;
+    background-color: #5d57c9;
+    color: var(--text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+.container{
+    background-color: var(--bgSoft);
+    margin-top: 20px;
+}

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { User, verifyRut } from "../../ModelosDatos/User";
 import { obtenerUser, actualizarUser, obtenerUserRut } from "../../Connection/SupabaseClient";
+import styles from "./upd-user.module.css"
 
 
 export default function UpdateUserForm() {
@@ -82,29 +83,10 @@ export default function UpdateUserForm() {
 
 
   return (
-    <div>
+    <div className={styles.container}>
       <div className="bg rounded-lg shadow-md p-6 max-w-2xl w-full">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">Modificar Usuario</h2>
-          <button
-            type="button"
-            className="text-gray-500 hover:text-gray-700 transition-colors duration-200"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
         </div>
         <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
           <div>
@@ -121,7 +103,7 @@ export default function UpdateUserForm() {
               required
             />
             <button type="button"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                    className={styles.button}
                     onClick={() =>buscarDatos(user.rut || 1)}>
                 Buscar
             </button>
