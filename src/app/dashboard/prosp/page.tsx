@@ -34,7 +34,7 @@ const ProspPage = () => {
                     <td>Pendiente</td>
                     <td>
                         <div className={styles.botones}>
-                            <Link href="/">
+                            <Link href="/dashboard/prosp/test">
                                 <button className={`${styles.button} ${styles.ver}`}>Ver</button>
                             </Link>
                             <button className={`${styles.button} ${styles.delete}`}>Eliminar</button>

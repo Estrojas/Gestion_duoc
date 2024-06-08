@@ -17,6 +17,7 @@
     "@material-tailwind/react": "^2.1.9",
     "@mui/material": "^5.15.18",
     "@remixicon/react": "^4.2.0",
+    "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "^2.42.7",
     "@tremor/react": "^3.17.2",
     "bootstrap": "^5.3.3",
@@ -26,6 +27,7 @@
     "react-icons": "^5.2.1",
     "recharts": "^2.12.6",
     "resend": "^3.2.0",
+    "supabase": "^1.172.2",
     "sweetalert2": "^11.10.8"
   },
   "devDependencies": {

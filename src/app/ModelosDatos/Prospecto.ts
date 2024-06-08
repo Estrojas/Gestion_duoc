@@ -5,7 +5,7 @@ export interface Prospecto {
     apellido: string;
     correo: string;
     telefono: number | null;
-    estado: 'pendiente' | 'Matriculado' | 'No matriculado'/*string;*/
+    estado: 'Pendiente' | 'Matriculado' | 'No matriculado'/*string;*/
     matriculador: number;
     aut_corr: boolean;
     aut_tel: boolean;

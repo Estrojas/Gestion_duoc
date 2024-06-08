@@ -1,0 +1,62 @@
+.container{
+    display: flex;
+    gap: 50px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+.infoContainer{
+    background-color: var(--bgSoft);
+    border-radius: 10px;
+    flex: 1;
+    align-items: space-between;
+}
+.formContainer{
+    background-color: var(--bgSoft);
+    flex: 3;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 10px;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+}
+.form input, .form textarea{
+    padding: 20px;
+    color: #2e374a;
+    border: 2px solid #2e374a;
+    border-radius: 5px;
+    margin: 10px 0px;
+}
+.form input{
+    color: #2e374a;
+}
+.form select{
+    padding: 20px;
+    color: #2e374a;
+    border: 2px solid #2e374a;
+    border-radius: 5px;
+    margin: 10px 0px;
+}
+.form button{
+    width: 45%;
+    padding: 20px;
+    background-color: teal;
+    color: var(--text);
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.titulo{
+    color: var(--text);
+    font-size: 30px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+.infoProspecto{
+    color: var(--text);
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
