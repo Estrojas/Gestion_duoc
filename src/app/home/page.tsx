@@ -9,6 +9,7 @@ import {
   obtenerUsers,
   login,
   signup,
+  obtenerUsuarios,
 } from "../Connection/SupabaseClient";
 import Link from "next/link";
 import SideBar from "@/components/Sidebar/Sidebar";
@@ -19,7 +20,6 @@ const supabase = createClient(
 );
 export default function homePage() {
   const usuario = supabase.auth.getUser();
-  console.log(usuario);
   /*
     const newUser: User = {
       rut: 11111111,
@@ -75,6 +75,15 @@ export default function homePage() {
     //hacerLogin('cri.jimenez24@gmail.com', '13061975cC') 
     //signup(newUser);
     */
+    const obtenerUsarioss = async () => {
+      const {User, error} = await obtenerUsuarios();
+      if(error){
+        console.error('Error getting users:',error);
+      } else {
+        console.log('Users found:',User);
+      }
+    };
+    obtenerUsarioss();
 
   return (
     <>

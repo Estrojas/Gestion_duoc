@@ -13,17 +13,23 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
     export async function ingresarUser(user: User) {
     const { data, error } = await supabase
-      .from('User')
+      .from('Usuarios')
       .insert([user]);
     return { data, error };
   }
 
     export async function obtenerUser(rut: number) {
         const { data, error } = await supabase
-        .from('User')
+        .from('Usuarios')
         .select('*')
         .eq('rut', rut);
         return { data, error };
+    }
+    export async function obtenerUsuarios(){
+      let { data: User, error } = await supabase
+      .from('Prospectos')
+      .select('*')
+      return { User, error };     
     }
     export async function obtenerUsers() {
         const { data, error } = await supabase
@@ -98,20 +104,20 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
     export async function ingresarProspecto(prospecto: Prospecto) {
         const { data, error } = await supabase
-        .from('Prospecto')
+        .from('Prospectos')
         .insert([prospecto]);
         return { data, error };
     }
     export async function obtenerProspecto(rut: number) {
         const { data, error } = await supabase
-        .from('Prospecto')
+        .from('Prospectos')
         .select('*')
         .eq('rut', rut);
         return { data, error };
     }
     export async function obtenerNombreProspecto(rut: number) {
         const { data, error } = await supabase
-        .from('Prospecto')
+        .from('Prospectos')
         .select('nombre, apellido')
         .eq('rut', rut);
     
@@ -126,14 +132,14 @@ const supabase = createClient(supabaseUrl, supabaseKey);
     }
     export async function obtenerProspectos() {
         const { data, error } = await supabase
-        .from('Prospecto')
+        .from('Prospectos')
         .select('*');
-        console.log(data);
+        //console.log(data);
         return { data, error };
     }
     export async function obtenerAdmisionEspecial() {
         const { data, error } = await supabase
-        .from('Prospecto')
+        .from('Prospectos')
         .select('*')
         .eq('tipoAdmision', 'Especial');
         return { data, error };
@@ -141,7 +147,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
     export async function actualizarProspecto(prospecto: Prospecto) {
         const { data, error } = await supabase
-        .from('Prospecto')
+        .from('Prospectos')
         .update(prospecto)
         .eq('rut', prospecto.rut);
         return { data, error };
@@ -149,7 +155,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
     export async function eliminarProspecto(rut: number) {
         const { data, error } = await supabase
-        .from('Prospecto')
+        .from('Prospectos')
         .delete()
         .eq('rut', rut);
         return { data, error };
@@ -157,7 +163,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
     export async function obtenerProspectosAtendidosPor(rut: number) {
         const { data, error } = await supabase
-        .from('Prospecto')
+        .from('Prospectos')
         .select('*')
         .eq('atendidoPor', rut);
         return { data, error };
@@ -178,13 +184,23 @@ const supabase = createClient(supabaseUrl, supabaseKey);
         }
     }
     export async function numeroDeProspectos(){
-        const { data, error } = await supabase
-        .from('Prospecto')
-        .select('*');
+        const { data, error } = await obtenerProspectos();
         //console.log(data);
         if(data){
+            //console.log(data.length);
             return data.length;
         }else{
           return 0;
         }
     }
+    export function numeroDeProspectos2(){
+      obtenerProspectos().then((prospectos) => {
+        if(prospectos && prospectos.data){
+          let num = prospectos.data.length;
+          return num;
+        }else{ 
+          return 0;
+        }
+
+      });
+  }
