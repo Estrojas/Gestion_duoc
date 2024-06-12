@@ -25,8 +25,8 @@ export default function LoginPage() {
       if (error) {
         console.error('Error de inicio de sesión:', error.message);
         Swal.fire({
-          title: "Problemas..",
-          text: "Email y/o password incorrectos",
+          title: "Problemas.",
+          text: "Email y/o contraseña incorrectos",
           icon: "error"
         });
       } else {

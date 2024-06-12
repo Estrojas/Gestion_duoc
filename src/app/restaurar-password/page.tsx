@@ -23,7 +23,7 @@ export default function RestorePage() {
                   <input type="email" className="form-control form-control-sm"  required   />
                 </div>
                 <div className="d-grid gap-2">
-                  <button type="submit" className="btn btn-warning fw-bold ">Restaurar Password</button>
+                  <button type="submit" className="btn btn-warning fw-bold ">Restaurar Contraseña</button>
                 </div>
                 <div className="mt-3">
                   <Link href="/" className="text-decoration-none mt-3 text-primary fw-bold">
