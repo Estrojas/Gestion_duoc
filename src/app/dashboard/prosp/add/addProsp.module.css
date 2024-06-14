@@ -17,6 +17,10 @@
 }
 .form input{
     width: 45%;
+    color: black;
+}
+.form text{
+    color: var(--text);
 }
 .form select{
     width: 45%;
@@ -32,10 +36,38 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 20px;
+}
+.form .buttonCancel{
+    width: 45%;
+    padding: 30px;
+    background-color: crimson;
+    color: var(--text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px
+
 }
 .titulo{
     color: var(--text);
     font-size: 20px;
     margin-bottom: 20px;
     font-weight: bold;
+}
+.containerCheck{
+    /*display: flex;*/
+    /*justify-content: space-between;*/
+    font-size: 15px;
+    font-weight: bold;
+    /*margin-bottom: 20px;*/
+}
+.buttonCancel{
+        padding: 10px;
+        background-color: crimson;
+        color: var(--text);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px;
 }

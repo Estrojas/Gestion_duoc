@@ -1,12 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { User, verifyRut } from "../../ModelosDatos/User";
-import { ingresarUser, signup, obtenerUserRut } from "../../Connection/SupabaseClient";
-import styles from "./registrar-user.module.css";
-import Link from "next/link";
+import { User, verifyRut } from "../../../ModelosDatos/User";
+import { obtenerUser, actualizarUser, obtenerUserRut } from "../../../Connection/SupabaseClient";
+import styles from "./upd-user.module.css"
 
 
-export default function CreateUserForm() {
+export default function UpdateUserForm() {
   const [user, setUser] = useState<User>({
     rut: null,
     dv: "",
@@ -29,50 +28,28 @@ export default function CreateUserForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //Verificación si el usuario ya existe en la base de datos
-    if (user.rut !== null) {
-      const {data, error} = await obtenerUserRut(user.rut);
-      if(data){
-        setModalMessage("El usuario ya existe. Por favor, verifique el RUT ingresado.");
+    const {data, error} = await actualizarUser(user);
+    try{
+        if(data === null){
+            setModalMessage("usuario Modificado");
+            setShowModal(true);
+            setUser({
+                rut: null,
+                dv: "",
+                correo: "",
+                password: "",
+                nombre: "",
+                apellido: "",
+                rol: "",
+                telefono: null,
+            });
+        };
+    }catch(error){
+        setModalMessage("No fue posible encontrar al usuario");
         setShowModal(true);
-        return;
-      } 
-    }
-    //Verificacion de rut valido
-    if (!verifyRut(user)) {
-      setModalMessage("RUT inválido. Por favor, verifique el RUT ingresado.");
-      setShowModal(true);
-      return;
-    } else { //rut valido verificado, se procede a agregar al usuario a la base de datos
-      try {
-        const { data, error } = await signup(user);
-        if (error) {
-          setModalMessage(
-            "Error al crear el usuario. Por favor, inténtelo de nuevo."
-          );
-          setShowModal(true);
-        } else {
-          setModalMessage("Usuario creado exitosamente.");
-          setShowModal(true);
-          setUser({
-            rut: null,
-            dv: "",
-            correo: "",
-            password: "",
-            nombre: "",
-            apellido: "",
-            rol: "",
-            telefono: null,
-          });
-        }
-      } catch (error) {
-        console.error("Error creating user:", error);
-        setModalMessage(
-          "Error al crear el usuario. Por favor, inténtelo de nuevo."
-        );
-        setShowModal(true);
-      }
-    }
+    };
+    
+    
   };
 
   const closeModal = () => {
@@ -80,26 +57,56 @@ export default function CreateUserForm() {
     setModalMessage("");
   };
 
+  async function buscarDatos(rut: number){
+    const {data, error} = await obtenerUser(rut);
+    try{
+        if(data){
+            console.log(data[0]);
+            setUser({
+                rut: data[0].rut,
+                dv: data[0].dv,
+                correo: data[0].correo,
+                password: data[0].password,
+                nombre: data[0].nombre,
+                apellido: data[0].apellido,
+                rol: data[0].rol,
+                telefono: data[0].telefono,
+              });
+        };
+    }catch(error){
+        setModalMessage("Usuario no encontrado");
+        setShowModal(true);
+    };
+    
+    
+  };
+
+
   return (
-    <div className="">
-      <div className="bg-gray rounded-lg shadow-md p-6 max-w-2xl">
+    <div className={styles.container}>
+      <div className="bg rounded-lg shadow-md p-6 max-w-2xl w-full">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">Nuevo Usuario</h2>
+          <h2 className="text-xl font-bold">Modificar Usuario</h2>
         </div>
-        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">{/*"grid grid-cols-2 gap-4"*/} 
+        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
           <div>
             <label htmlFor="rut" className="block font-medium mb-2">
               RUT*
-            </label>
+            </label> 
             <input
               type="number"
               id="rut"
               name="rut"
               value={user.rut || ""} // Usa un string vacío como valor de respaldo
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md py-2 px-3"
+              className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
               required
             />
+            <button type="button"
+                    className={styles.button}
+                    onClick={() =>buscarDatos(user.rut || 1)}>
+                Buscar
+            </button>
           </div>
           <div>
             <label htmlFor="dv" className="block font-medium mb-2">
@@ -111,7 +118,7 @@ export default function CreateUserForm() {
               name="dv"
               value={user.dv}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md py-2 px-3"
+              className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
               required
             />
           </div>
@@ -125,21 +132,7 @@ export default function CreateUserForm() {
               name="correo"
               value={user.correo}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md py-2 px-3"
-              required
-            />
-          </div>
-          <div className="col-span-2">
-            <label htmlFor="password" className="block font-medium mb-2">
-              Contraseña*
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={user.password}
-              onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md py-2 px-3"
+              className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
               required
             />
           </div>
@@ -153,7 +146,7 @@ export default function CreateUserForm() {
               name="nombre"
               value={user.nombre}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md py-2 px-3"
+              className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
               required
             />
           </div>
@@ -167,7 +160,7 @@ export default function CreateUserForm() {
               name="apellido"
               value={user.apellido}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md py-2 px-3"
+              className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
               required
             />
           </div>
@@ -180,7 +173,7 @@ export default function CreateUserForm() {
               name="rol"
               value={user.rol}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md py-2 px-3"
+              className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
               required
             >
               <option value="">Selecciona un rol</option>
@@ -198,7 +191,7 @@ export default function CreateUserForm() {
               name="telefono"
               value={user.telefono || ""} // Use empty string as fallback value
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md py-2 px-3"
+              className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
               required
             />
           </div>
@@ -207,16 +200,14 @@ export default function CreateUserForm() {
               type="submit"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
             >
-              Crear Usuario
+              Modificar Usuario
             </button>
-            <Link href= "/dashboard/users">
             <button
               type="button"
               className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
             >
               Cancelar
             </button>
-            </Link>
           </div>
         </form>
       </div>

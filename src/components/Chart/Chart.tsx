@@ -3,11 +3,17 @@ import styles from './Chart.module.css';
 import React, { PureComponent } from 'react';
 import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
+interface ChartProps {
+    num_mat: number;
+    num_pen: number;
+    num_not_mat: number;
+}
+/*
 const data01 = [
     { name: 'No Matriculados', value: 700 },
     { name: 'Matriculados', value: 300 },
     { name: 'Pendientes', value: 500 },
-  ];
+  ];*/
   
   const data02 = [
     { name: 'Group A', value: 2400 },
@@ -20,7 +26,14 @@ const data01 = [
   const COLORS = ['#f7737375', '#afd6ee75', '#f7cb7375'];
 
 
-const Chart = () => {
+const Chart: React.FC<ChartProps> = ({num_mat,num_not_mat,num_pen}) => {
+
+    const data01 = [
+        { name: 'No Matriculados', value: num_not_mat },
+        { name: 'Matriculados', value: num_mat },
+        { name: 'Pendientes', value: num_pen },
+      ];
+
     return (
         <div className={styles.container}>
             <h2>Reportes</h2>

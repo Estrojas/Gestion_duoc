@@ -32,12 +32,12 @@ const menuItems = [
       },
       {
         title: "Registrar Usuario",
-        path: "/dashboard/registrar-user/",
+        path: "/dashboard/users/registrar-user/",
         icon: <MdOutlinePersonAdd/>
       },
       {
         title: "Modificar Usuario",
-        path: "/dashboard/upd-user/",
+        path: "/dashboard/users/upd-user/",
         icon: <MdOutlinePersonSearch/>
       },
       
@@ -53,7 +53,7 @@ const menuItems = [
       },
       {
         title: "Registrar Prospecto",
-        path: "/dashboard/registrar-user/",
+        path: "/dashboard/prosp/add",
         icon: <MdOutlinePersonAdd/>
       },
       {

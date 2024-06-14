@@ -1,8 +1,21 @@
+import { obtenerUltimosProspectos } from '@/app/Connection/SupabaseClient';
 import styles from './Transactions.module.css';
 import Image from 'next/image';
+import { useState , useEffect } from 'react';
 
-const Transactions = () => {
+const Transactions =  () => {
 
+    const [dataProps, setDataProps] = useState<any[]>([]);
+
+    useEffect(() => {
+        obtenerUltimosProspectos().then((res) => {
+            if(res.data){
+                setDataProps(res.data);
+            }else{
+                console.log(res.error);
+            }
+        });
+    }, []);
 
     return (
         <div className={styles.container}>

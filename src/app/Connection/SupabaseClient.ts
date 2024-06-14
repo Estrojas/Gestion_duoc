@@ -26,16 +26,47 @@ const supabase = createClient(supabaseUrl, supabaseKey);
         return { data, error };
     }
     export async function obtenerUsuarios(){
-      let { data: User, error } = await supabase
-      .from('Prospectos')
+      let { data, error } = await supabase
+      .from('Usuarios')
       .select('*')
-      return { User, error };     
+      return { data, error };     
     }
-    export async function obtenerUsers() {
+    export async function obtener(q: string,page: number){
+      const regex = new RegExp(q,"i");
+      const ITEM_PER_PAGE = 10;
+      const start = (page - 1) * ITEM_PER_PAGE;
+      const end = start + ITEM_PER_PAGE - 1;
+      console.log(q)
+      if(q === ""){ //Si no hay nada en el input
         const { data, error } = await supabase
-        .from('User')
-        .select('*');
+        .from('Prospectos')
+        .select('*')
+        .range(start, end);
         return { data, error };
+      }else{
+        const { data, error } = await supabase
+        .from('Prospectos')
+        .select('*')
+        .ilike('nombre', q)
+        .range(start, end);
+        return { data, error };
+      }
+    }
+    export async function obtener2(q: string){
+      const regex = new RegExp(q,"i");
+      console.log(q)
+      if(q === ""){ //Si no hay nada en el input
+        const data = await supabase
+        .from('Usuarios')
+        .select('*');
+        return data;
+      }else{
+        const { data, error } = await supabase
+        .from('Usuarios')
+        .select('*')
+        .ilike('nombre', q);
+        return data;
+      }
     }
     export async function obtenerNumeroUsers() {
       const { data, error } = await supabase
@@ -80,7 +111,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
     }
     export async function obtenerUserRut(rut: number) {
         const { data, error } = await supabase
-        .from('User')
+        .from('Usuarios')
         .select('rut')
         .eq('rut', rut);
         return { data, error };
@@ -103,6 +134,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
     }
 
     export async function ingresarProspecto(prospecto: Prospecto) {
+      console.log("flag");
         const { data, error } = await supabase
         .from('Prospectos')
         .insert([prospecto]);
@@ -115,33 +147,11 @@ const supabase = createClient(supabaseUrl, supabaseKey);
         .eq('rut', rut);
         return { data, error };
     }
-    export async function obtenerNombreProspecto(rut: number) {
-        const { data, error } = await supabase
-        .from('Prospectos')
-        .select('nombre, apellido')
-        .eq('rut', rut);
-    
-      if (error) {
-        console.error('Error fetching user:', error);
-        return { data: null, error };
-      }
-    
-      const nombreCompleto = data ? `${data[0].nombre} ${data[0].apellido}` : null;
-    
-      return { data: nombreCompleto, error: null };
-    }
     export async function obtenerProspectos() {
         const { data, error } = await supabase
         .from('Prospectos')
         .select('*');
         //console.log(data);
-        return { data, error };
-    }
-    export async function obtenerAdmisionEspecial() {
-        const { data, error } = await supabase
-        .from('Prospectos')
-        .select('*')
-        .eq('tipoAdmision', 'Especial');
         return { data, error };
     }
 
@@ -184,23 +194,24 @@ const supabase = createClient(supabaseUrl, supabaseKey);
         }
     }
     export async function numeroDeProspectos(){
-        const { data, error } = await obtenerProspectos();
-        //console.log(data);
-        if(data){
-            //console.log(data.length);
-            return data.length;
-        }else{
-          return 0;
-        }
+        const { data, error } = await supabase 
+        .from('Prospectos')
+        .select('*',{count: 'exact'});
+        return {data,error};
     }
-    export function numeroDeProspectos2(){
-      obtenerProspectos().then((prospectos) => {
-        if(prospectos && prospectos.data){
-          let num = prospectos.data.length;
-          return num;
-        }else{ 
-          return 0;
-        }
 
-      });
-  }
+    export async function obtenerProspectosPorEstado(estado: string){
+        const { data, error } = await supabase
+        .from('Prospectos')
+        .select('*', {count: 'exact'})
+        .eq('estado', estado);
+        return { data, error };
+    }
+    export async function obtenerUltimosProspectos(){
+        const { data, error } = await supabase
+        .from('Prospectos')
+        .select('*')
+        .order('created_at', {ascending: false})
+        .range(0, 6);
+        return { data, error };
+    }

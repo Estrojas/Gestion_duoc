@@ -1,6 +1,5 @@
 import { MdSupervisedUserCircle } from 'react-icons/md';
 import styles from './Card.module.css';
-import { numeroDeProspectos, obtenerNumeroUsers, obtenerUser, obtenerUsers } from '@/app/Connection/SupabaseClient';
 
 interface CardProps {
     numero_prospectos: number;
@@ -8,13 +7,8 @@ interface CardProps {
   }
 
 
-const Card: React.FC<CardProps> = async ({numero_prospectos, titulo}) => {
-    //const numero_prospectos = await numeroDeProspectos();
-    //const {data,error} = await obtenerUsers();
-    //const {data,error} = await obtenerUser(16330999);
-    //console.log(data);
-    //const data = await obtenerNumeroUsers();
-    //console.log(data);
+const Card: React.FC<CardProps> = ({numero_prospectos, titulo}) => {
+
     return (
         <div className={styles.container}>
             <MdSupervisedUserCircle size={24}/>
