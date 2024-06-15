@@ -1,9 +1,9 @@
 'use client'
 import Search from '@/components/Search/Search';
-import styles from './props.module.css';
+import styles from './carreras.module.css';
 import Link from 'next/link';
 import Pagination from '@/components/Pagination/Pagination';
-import { obtenerProspectos, obtener, numeroDeProspectos } from '@/app/Connection/SupabaseClient';
+import { obtenerCarreras } from '@/app/Connection/SupabaseClient';
 import { useEffect, useState } from 'react';
 import { borrarProspectoAction } from '@/app/Connection/accion';
 
@@ -11,7 +11,7 @@ interface Props {
     searchParams: any; // Reemplaza 'any' con el tipo real de 'searchParams'
   }
 
-const ProspPage = /*async*/ ({searchParams}: Props) => {
+const CarrerasPage = /*async*/ ({searchParams}: Props) => {
 
     const q = searchParams?.q || "";
     const page = searchParams?.page || 1;
@@ -20,13 +20,13 @@ const ProspPage = /*async*/ ({searchParams}: Props) => {
     console.log(data)
 */
     
-    const [dataProps, setDataProps] = useState<any[]>([]);
+    const [dataCarr, setDataCarr] = useState<any[]>([]);
     
     useEffect(() => {
         const fetchData = async () => {
-            const {data, error} = await obtener(q,page);
+            const {data, error} = await obtenerCarreras(q,page);
             if(data){
-                setDataProps(data);
+                setDataCarr(data);
             }else{
                 console.log(error);
             }
@@ -38,47 +38,44 @@ const ProspPage = /*async*/ ({searchParams}: Props) => {
     return(
         <div className={styles.container}>
             <div className={styles.top}>
-                <Search placeholder='Buscar Prospecto'/>
-                <Link href="/dashboard/prosp/add">
-                    <button className={styles.addButton}>Agregar</button>
+                <Search placeholder='Buscar Carrera'/>
+                <Link href="/dashboard/carreras/add">
+                    <button className={styles.addButton}>Crear</button>
                 </Link>
             </div>
             <table className={styles.table}>
                 <thead>
                     <tr>
-                        <td>Nombre</td>
-                        <td>Correo</td>
-                        <td>telefono</td>
-                        <td>Estado</td>
-                        <td>Creado el</td>
+                        <td>Nombre Carrera</td>
+                        <td>Cupos Diurnos</td>
+                        <td>Cupos Vespertinos</td>
+                        <td>Precio Matricula</td>
+                        <td>Tipo</td>
                         <td>Acción</td>
                     </tr>
                 </thead>
                 <tbody>
-                    {dataProps && dataProps.map((Prospecto) => (
-                        <tr key={Prospecto.rut}>
+                    {dataCarr && dataCarr.map((Carrera) => (
+                        <tr key={Carrera.id}>
                         <td>
                             <div className={styles.prosp}>
-                            {Prospecto.nombre} {Prospecto.apellido}
+                            {Carrera.nombre_carr}
                             </div>
                         </td>
-                        <td>{Prospecto.correo}</td>
-                        <td>{Prospecto.telefono || "No tiene telefono"}</td>
-                        <td>{Prospecto.estado}</td>
-                        <td>{Prospecto.created_at.toString().slice(0,10).split('-').reverse().join('-')}</td>
+                        <td>{Carrera.cupos_di || "Sin cupos diurnos"}</td>
+                        <td>{Carrera.cupos_vesp || "Sin cupos Vespertinos"}</td>
+                        <td>${Carrera.precio_mat}</td>
+                        <td>{Carrera.tipo}</td>
                         <td>
                             <div className={styles.botones}>
-                                <Link href={`/dashboard/prosp/${Prospecto.rut}`}>
+                                <Link href={`/dashboard/carreras/${Carrera.id_carr}`}>
                                     <button className={`${styles.button} ${styles.ver}`}>Ver</button>
                                 </Link>
-                                <Link href={`/dashboard/send-email/${Prospecto.rut}`}>
-                                    <button className={`${styles.button} ${styles.email}`}>Email</button>
-                                </Link>
-                                <Link href={`/dashboard/seguimientos/add/${Prospecto.rut}`}>
-                                    <button className={`${styles.button} ${styles.seguimiento}`}>Crear Seguimiento</button>
+                                <Link href={`/dashboard/carreras/reportes/${Carrera.id_carr}`}>
+                                    <button className={`${styles.button} ${styles.reportes}`}>Reportes</button>
                                 </Link>
                                 <form action={borrarProspectoAction}>
-                                    <input type="hidden" name="rut" value={Prospecto.rut}/>
+                                    <input type="hidden" name="rut" value={Carrera.id_carr}/>
                                     <button className={`${styles.button} ${styles.delete}`}>Eliminar</button>
                                 </form>
                                 
@@ -93,4 +90,4 @@ const ProspPage = /*async*/ ({searchParams}: Props) => {
     )
 }
 
-export default ProspPage;
+export default CarrerasPage;

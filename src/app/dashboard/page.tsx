@@ -55,7 +55,10 @@ const dashboard = () => {
                     <Card numero_prospectos={numPen} titulo="Prospectos Pendientes"/>
                 </div>
                 <Transactions/>
-                <Chart num_mat={numMat} num_not_mat={numNotMat} num_pen={numPen}/>
+                <Chart 
+                        nameMatriculados= "Matriculados" num_mat={numMat} 
+                        nameNoMatriculados="No Matriculados" num_not_mat={numNotMat} 
+                        namePendientes="Pendientes" num_pen={numPen}/>
                     
             </div>
             <div className={styles.side}>

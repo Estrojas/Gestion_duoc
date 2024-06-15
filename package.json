@@ -20,6 +20,7 @@
     "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "^2.42.7",
     "@tremor/react": "^3.17.2",
+    "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "next": "^14.2.3",
     "react": "^18",

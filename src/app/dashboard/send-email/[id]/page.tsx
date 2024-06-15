@@ -1,15 +1,23 @@
 "use client";
-import { useState } from "react";
-import { User } from "../../ModelosDatos/User";
-import { obtenerProspectoForEmail } from "../../Connection/SupabaseClient";
-import { json } from "stream/consumers";
-import { POST } from "../../api/send/route";
-import styles from "./send-email.module.css";
-import axios from "axios";
+import { useState, useEffect } from "react";
+import { User } from "../../../ModelosDatos/User";
+import { obtenerProspectoForEmail } from "../../../Connection/SupabaseClient";
+import styles from "../send-email.module.css";
 
-export default function send_email() {
+
+interface Params {
+  id: string;
+}
+
+export default function send_email({params} : {params: Params}) {
+  const {id} = params;
+
+  useEffect(() => {
+    buscarDatos(parseInt(id));
+  }, []);
+  
   const [user, setUser] = useState<User>({
-    rut: null,
+    rut: parseInt(id),
     dv: "",
     correo: "",
     password: "",
@@ -66,7 +74,7 @@ export default function send_email() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.titulo}>Enviar Mail</h1>
+      <h1 className={styles.titulo}>Enviar Email</h1>
       <form action = "">
         <div>
           <label htmlFor="rut" className="block font-medium mb-2">
@@ -78,7 +86,7 @@ export default function send_email() {
             name="rut"
             value={user.rut || ""} // Usa un string vacío como valor de respaldo
             onChange={handleChange}
-            className={styles.input}
+            className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
             required
           />
           <button
@@ -111,7 +119,7 @@ export default function send_email() {
             className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
             required
           />
-          <label htmlFor="Mensaje" className={"block font-medium mb-2"}>
+          <label htmlFor="Mensaje" className="block font-medium mb-2">
             Mensaje
           </label>
           <textarea

@@ -60,7 +60,7 @@ const UsersPage = async() => {
                     <td>{User.correo}</td>
                     <td>{User.telefono}</td>
                     <td>{User.rol}</td>
-                    <td>{User.created_at.toString().slice(0,10)}</td>
+                    <td>{User.created_at.toString().slice(0,10).split('-').reverse().join('-')}</td>
                     <td>
                         <div className={styles.botones}>
                             <Link href="/dashboard/users/registrar-user">

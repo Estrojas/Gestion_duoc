@@ -33,11 +33,11 @@ const addProsp = () => {
         setModalMessage("");
       };
 */
+    
 
     return (
         <div className={styles.container}>
             <h1 className={styles.titulo}>Agregar Prospecto</h1>
-
             <form action={ingresarProspectoAction}  className={styles.form}>
                 <input type="number" placeholder="Rut" name='rut' /*value={pro.rut || ""} onChange={handleChange}*//>
                 <input type="text" placeholder="Dv" name='dv' /*value={pro.dv} onChange={handleChange}*//>

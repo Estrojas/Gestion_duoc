@@ -69,17 +69,17 @@ const menuItems = [
     list:[
       {
         title: "Enviar Mail",
-        path: "/usuarios",
+        path: "/dashboard/send-email",
         icon: <MdBoy/>
       },
       {
-        title: "Colegios",
-        path: "/usuarios",
+        title: "Seguimientos",
+        path: "/dashboard/seguimientos",
         icon: <MdBoy/>
       },
       {
         title: "Carreras",
-        path: "/usuarios",
+        path: "/dashboard/carreras",
         icon: <MdBoy/>
       }
     ]

@@ -1,5 +1,4 @@
 .container{
-    display: flex;
     gap: 50px;
     border-radius: 10px;
     margin-top: 20px;
@@ -34,13 +33,15 @@
 }
 .form select{
     padding: 20px;
-    color: #2e374a;
+    background-color: var(--bg);
+    color: var(--text);
     border: 2px solid #2e374a;
     border-radius: 5px;
     margin: 10px 0px;
 }
 .form button{
-    width: 45%;
+    margin-bottom: 10px;
+    width: 30%;
     padding: 20px;
     background-color: teal;
     color: var(--text);
@@ -60,4 +61,14 @@
     font-size: 20px;
     margin-bottom: 20px;
     text-align: center;
+}
+.form .buttonCancel{
+    width: 30%;
+    padding: 20px;
+    background-color: crimson;
+    color: var(--text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
 }

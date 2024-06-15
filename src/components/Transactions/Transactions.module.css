@@ -12,6 +12,9 @@
 .table{
     width: 100%;
 }
+.table thead{
+    font-weight: bold;
+}
 .table td{
     padding: 10px;
 }

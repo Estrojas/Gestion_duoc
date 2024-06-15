@@ -1,11 +1,14 @@
 'use client';
 import styles from './Chart.module.css';
-import React, { PureComponent } from 'react';
-import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import React from 'react';
+import { PieChart, Pie, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
 interface ChartProps {
+    nameMatriculados: string;
     num_mat: number;
+    namePendientes: string;
     num_pen: number;
+    nameNoMatriculados: string;
     num_not_mat: number;
 }
 /*
@@ -26,12 +29,12 @@ const data01 = [
   const COLORS = ['#f7737375', '#afd6ee75', '#f7cb7375'];
 
 
-const Chart: React.FC<ChartProps> = ({num_mat,num_not_mat,num_pen}) => {
+const Chart: React.FC<ChartProps> = ({num_mat,num_not_mat,num_pen,nameMatriculados,nameNoMatriculados,namePendientes}) => {
 
     const data01 = [
-        { name: 'No Matriculados', value: num_not_mat },
-        { name: 'Matriculados', value: num_mat },
-        { name: 'Pendientes', value: num_pen },
+        { name: nameNoMatriculados, value: num_not_mat },
+        { name: nameMatriculados, value: num_mat },
+        { name: namePendientes, value: num_pen },
       ];
 
     return (
