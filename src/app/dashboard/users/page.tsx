@@ -51,7 +51,7 @@ const UsersPage = async() => {
                 </thead>
                 <tbody>
                 {data && data.map((User) => (
-                    <tr>
+                    <tr key={User.rut} >
                     <td>
                         <div className={styles.prosp}>
                         {User.nombre} {User.apellido}
@@ -63,8 +63,11 @@ const UsersPage = async() => {
                     <td>{User.created_at.toString().slice(0,10).split('-').reverse().join('-')}</td>
                     <td>
                         <div className={styles.botones}>
-                            <Link href="/dashboard/users/registrar-user">
+                            <Link href="/dashboard/users/upd-user">
                                 <button className={`${styles.button} ${styles.ver}`}>Ver</button>
+                            </Link>
+                            <Link href={`/dashboard/users/reportes/${User.rut}`}>
+                                <button className={`${styles.button} ${styles.ver}`}>Reportes</button>
                             </Link>
                             <button className={`${styles.button} ${styles.delete}`}>Eliminar</button>
                         </div>

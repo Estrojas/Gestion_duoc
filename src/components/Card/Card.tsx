@@ -8,6 +8,7 @@ interface CardProps {
 
 
 const Card: React.FC<CardProps> = ({numero_prospectos, titulo}) => {
+    const fechaActual = new Date();
 
     return (
         <div className={styles.container}>
@@ -15,7 +16,7 @@ const Card: React.FC<CardProps> = ({numero_prospectos, titulo}) => {
             <div className={styles.texts}>
                 <span className={styles.title}>{titulo}</span>
                 <span className={styles.number}>{numero_prospectos}</span>
-                <span className={styles.details}>Desde la ultima semana</span>
+                <span className={styles.details}>A fecha: {fechaActual.toString().slice(4,21)}</span>
 
             </div>
         </div>

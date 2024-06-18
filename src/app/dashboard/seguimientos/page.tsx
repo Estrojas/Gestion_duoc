@@ -5,7 +5,6 @@ import Link from 'next/link';
 import Pagination from '@/components/Pagination/Pagination';
 import { obtenerSeguimientos, obtener, numeroDeProspectos, obtenerSeguimientosPrueba} from '@/app/Connection/SupabaseClient';
 import { useEffect, useState } from 'react';
-import { NombreSeguimientoAction } from '@/app/Connection/accion';
 
 interface Props {
     searchParams: any; // Reemplaza 'any' con el tipo real de 'searchParams'
@@ -70,7 +69,7 @@ const SegPage = /*async*/ ({searchParams}: Props) => {
                                 <Link href={`/dashboard/seguimientos/${seguimiento.id}`}>
                                     <button className={`${styles.button} ${styles.email}`}>Ver Seguimiento</button>
                                 </Link>
-                                <form action={NombreSeguimientoAction}>
+                                <form action="">
                                     <input type="hidden" name="rut" value={seguimiento.rut}/>
                                     <button className={`${styles.button} ${styles.delete}`}>Eliminar</button>
                                 </form>

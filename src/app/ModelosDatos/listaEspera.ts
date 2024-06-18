@@ -1,5 +1,4 @@
 export interface listaEspera {
-    id_lista: string | null;
-    rut: string | null;
+    rut_pro_lista: number | null;
     id_carr_lista: string | null;
 }

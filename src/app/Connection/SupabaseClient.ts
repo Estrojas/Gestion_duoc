@@ -5,6 +5,7 @@ import { User } from '../ModelosDatos/User';
 import { Prospecto } from '../ModelosDatos/Prospecto';
 import { Carrera } from '../ModelosDatos/Carrera'
 import { Seguimiento } from '../ModelosDatos/seguimiento'
+import {listaEspera} from '../ModelosDatos/listaEspera'
 
 
 const supabaseUrl = 'https://pmuoxymxmexmjrpuwiuq.supabase.co';
@@ -267,7 +268,6 @@ const supabase = createClient(supabaseUrl, supabaseKey);
         .from('Carreras')
         .select('*')
         .eq('id_carr', id_carr);
-        console.log("Flag funcion");
         if (data){
           return data[0];
         }else{
@@ -344,11 +344,96 @@ const supabase = createClient(supabaseUrl, supabaseKey);
         
         const { data, error } = await supabase
         .from('seguimiento')
-        .select('*')
-        .ilike('rut_pro', q)
+        .select('id, rut_pro, observaciones, contactado, created_at, Prospectos (rut , nombre, apellido)')
+        .eq('rut_pro', parseInt(q))
+        //.or(`rut_pro.eq.${parseInt(q)},Prospectos(nombre).ilike.${q}`)
+        //.ilike('rut_pro', q)
         .order('created_at', {ascending: false})
         .range(start, end);
         return { data, error };
       }
     }
+    export async function obtenerSeguimientosPorProspecto(q: string,page: number){
+      const regex = new RegExp(q,"i");
+      const ITEM_PER_PAGE = 10;
+      const start = (page - 1) * ITEM_PER_PAGE;
+      const end = start + ITEM_PER_PAGE - 1;
+      console.log(q)
+      if(q === ""){ //Si no hay nada en el input
+        const { data, error } = await supabase
+        .from('seguimiento')
+        .select('id, rut_pro, observaciones, contactado, created_at, Prospectos (rut , nombre, apellido)') 
+        .order('created_at', {ascending: false})
+        .range(start, end);
+        return { data, error };
+      }else{
+        
+        const { data, error } = await supabase
+        .from('seguimiento')
+        .select('*')
+        .ilike('rut_pro', q)
+        .order('created_at', {ascending: false})
+        .range(start, end);
+        return {data, error }
+      }
+  }
+    export async function ingresarListaEspera(listaEspera: listaEspera) {
+        const { data, error } = await supabase
+        .from('lista_espera')
+        .insert([listaEspera]);
+        return { data, error };
+    }
+    export async function obtenerListaEspera(id_carr_lista: String) {
+        const { data, error } = await supabase
+        .from('lista_espera')
+        .select('rut_pro_lista, id_carr_lista, created_at, Prospectos (nombre, apellido, telefono, estado)')
+        .eq('id_carr_lista', id_carr_lista)
+        .order('created_at', {ascending: true});
+        if (data){
+          console.log("data",data)
+          return data;
+        }else{
+          return { data: null, error };
+        }
+      }
+
+    export async function updateCarrera(data: any, id_carr: string) {
+        const { error } = await supabase
+        .from('Carreras')
+        .update(data)
+        .eq('id_carr', id_carr);
+        return { error };
+    }
     
+    export async function obtenerProspectosPorMatriculador(rut: number) {
+        const { data, error } = await supabase
+        .from('Prospectos')
+        .select('*')
+        .eq('Matriculador', rut);
+        return { data, error };
+    }
+    export async function obtenerProsPend(rut: number) {
+        const { data, error } = await supabase
+        .from('Prospectos')
+        .select('*')
+        .eq('Matriculador', rut)
+        .eq('estado', 'Pendiente')
+        .order('created_at', {ascending: true});
+        return { data, error };
+    }
+    export async function obtenerProsMat(rut: number) {
+        const { data, error } = await supabase
+        .from('Prospectos')
+        .select('*')
+        .eq('Matriculador', rut)
+        .eq('estado', 'Matriculado');
+        return { data, error };
+    }
+    export async function obtenerProsNotMat(rut: number) {
+      const { data, error } = await supabase
+      .from('Prospectos')
+      .select('*')
+      .eq('Matriculador', rut)
+      .eq('estado', 'No Matriculado');
+      return { data, error };
+  }

@@ -56,11 +56,6 @@ const menuItems = [
         path: "/dashboard/prosp/add",
         icon: <MdOutlinePersonAdd/>
       },
-      {
-        title: "Modificar Prospecto",
-        path: "/dashboard/upd-user/",
-        icon: <MdOutlinePersonSearch/>
-      },
       
     ]
   },

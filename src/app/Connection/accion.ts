@@ -1,10 +1,11 @@
 "use server"
-import { actualizarProspecto, eliminarProspecto, ingresarCarrera, ingresarProspecto, ingresarSeguimiento, obtenerSeguimiento, updateProspecto } from './SupabaseClient'
+import {eliminarProspecto, ingresarCarrera, ingresarListaEspera, ingresarProspecto, ingresarSeguimiento, updateProspecto, updateCarrera } from './SupabaseClient'
 import {Prospecto} from '../ModelosDatos/Prospecto'
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import {Carrera} from '../ModelosDatos/Carrera'
 import {Seguimiento} from '../ModelosDatos/seguimiento'
+import {listaEspera} from '../ModelosDatos/listaEspera'
 
 export const ingresarProspectoAction = async (formData: any): Promise<void> => {
     
@@ -209,20 +210,85 @@ export const ingresarSeguimientoAction = async (formData: any): Promise<void> =>
     }
     redirect("/dashboard/prosp");
 }
-export const NombreSeguimientoAction = async (formData: any): Promise<void> => {
+
+export const ingresarListaEsperaAction = async (formData: any): Promise<void> => {
+    
     const {
-        rut_pro,
+        rut_pro_lista,
+        id_carr_lista,
     } = Object.fromEntries(formData);
+
     try{
-        const result = await obtenerSeguimiento(rut_pro);
-        if ('data' in result) {
-          const { data } = result;
-          // Ahora puedes usar 'data' de manera segura aquí
-        } else {
-          // Manejar el caso en que 'data' no existe en 'result'
+        const lista: listaEspera = {
+            rut_pro_lista: null,
+            id_carr_lista: "",
+        };
+        lista.rut_pro_lista = rut_pro_lista;
+        lista.id_carr_lista = id_carr_lista;
+
+
+        const {data, error} = await ingresarListaEspera(lista);
+        if (data) {
+            console.log("data",data);
+        } else if (error) {
+            console.log("error",error);
         }
     } catch(error) {
         console.log("Error")
         console.error(error);
     }
+    redirect("/dashboard/prosp");
 }
+export const modCarreraAction = async (formData: any): Promise<void> => {
+    interface UpdatedFields {
+        nombre_carr?: any;
+        cupos_di?: any;
+        cupos_vesp?: any;
+        tipo?: any;
+        precio_mat?: any;
+        mat_di?: any;
+        mat_vesp?: any;
+        [key: string]: any; // Esto es una firma de índice
+      }
+
+      const {
+        id_carr,
+        nombre_carr,
+        cupos_di,
+        cupos_vesp,
+        tipo,
+        precio_mat,
+        mat_di,
+        mat_vesp
+      } = Object.fromEntries(formData);
+
+    const updatedFields: UpdatedFields = {
+        id_carr,
+        nombre_carr,
+        cupos_di,
+        cupos_vesp,
+        tipo,
+        precio_mat,
+        mat_di,
+        mat_vesp
+    }
+
+    Object.keys(updatedFields).forEach((key)=>
+        (updatedFields[key] === "" || undefined) && delete updatedFields[key]
+    )
+
+    try{
+        console.log("updated",updatedFields)
+        const {error} = await updateCarrera(updatedFields,id_carr);
+        if (error) {
+            console.log("error",error);
+        }
+    } catch(error) {
+        console.log("Error")
+        console.error(error);
+    }
+    redirect("/dashboard/carreras");
+
+}
+
+

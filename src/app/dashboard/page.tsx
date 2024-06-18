@@ -51,8 +51,8 @@ const dashboard = () => {
                 <div className={styles.cards}>
 
                     <Card numero_prospectos={numPros} titulo="Numero de Prospectos Totales"/>
-                    <Card numero_prospectos={numMat} titulo="Prospectos Matriculados"/>
-                    <Card numero_prospectos={numPen} titulo="Prospectos Pendientes"/>
+                    <Card numero_prospectos={numMat} titulo="Prospectos Matriculados Totales"/>
+                    <Card numero_prospectos={numPen} titulo="Prospectos Pendientes Totales"/>
                 </div>
                 <Transactions/>
                 <Chart 
