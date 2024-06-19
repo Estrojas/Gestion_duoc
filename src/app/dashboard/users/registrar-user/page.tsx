@@ -31,12 +31,17 @@ export default function CreateUserForm() {
     e.preventDefault();
     //Verificación si el usuario ya existe en la base de datos
     if (user.rut !== null) {
-      const {data, error} = await obtenerUser(user.rut);
-      if(data && data.length > 0){
+      const data = await obtenerUser(user.rut);
+      if (data) {
         setModalMessage("El usuario ya existe. Por favor, verifique el RUT ingresado.");
         setShowModal(true);
         return;
-      } 
+      }
+      /*if(data && data.length > 0){
+        setModalMessage("El usuario ya existe. Por favor, verifique el RUT ingresado.");
+        setShowModal(true);
+        return;
+      } */
     }
     //Verificacion de rut valido
     if (!verifyRut(user)) {
@@ -45,14 +50,16 @@ export default function CreateUserForm() {
       return;
     } else { //rut valido verificado, se procede a agregar al usuario a la base de datos
       try {
-        /*const { data, error } = await signup(user);*/
-        const { data, error } = await ingresarUser(user);
-        if (error) {
+        //19773662-3
+        const { data, error } = await signup(user);
+        if (false) {
+          console.log(error);
           setModalMessage(
             "Error al crear el usuario. Por favor, inténtelo de nuevo."
           );
           setShowModal(true);
         } else {
+          const { data, error } = await ingresarUser(user);
           setModalMessage("Usuario creado exitosamente.");
           setShowModal(true);
           setUser({
@@ -184,7 +191,7 @@ export default function CreateUserForm() {
             >
               <option value="">Selecciona un rol</option>
               <option value="Administrativo">Administrativo</option>
-              <option value="Alumno Ayudante">Alumno Ayudante</option>
+              <option value="Alumno Ayudante">Ayudante</option>
             </select>
           </div>
           <div>

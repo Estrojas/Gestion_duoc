@@ -4,10 +4,21 @@ import styles from './user.module.css';
 import Link from 'next/link';
 import Pagination from '@/components/Pagination/Pagination';
 import { useEffect, useState } from 'react';
-import { obtenerUsuarios } from '@/app/Connection/SupabaseClient';
+import { obtener2 } from '@/app/Connection/SupabaseClient';
 
-const UsersPage = async() => {
-    const { data, error } = await obtenerUsuarios();
+
+interface Props {
+    searchParams: any; // Reemplaza 'any' con el tipo real de 'searchParams'
+  }
+
+
+const UsersPage = async({searchParams}: Props) => {
+
+    const q = searchParams?.q || "";
+    const page = searchParams?.page || 1;
+
+    const {data, error} = await obtener2(q,page);
+    console.log("usuarios",data)
     /*
     const [dataUsers, setDataUsers] = useState<any[]>([]);
 
@@ -34,8 +45,8 @@ const UsersPage = async() => {
         <div className={styles.container}>
             <div className={styles.top}>
                 <Search placeholder='Buscar Usuario'/>
-                <Link href="/dashboard/registrar-user">
-                    <button className={styles.addButton}>Agregar</button>
+                <Link href="/dashboard/users/registrar-user">
+                    <button className={styles.addButton}>Agregar Usuario</button>
                 </Link>
             </div>
             <table className={styles.table}>
@@ -63,11 +74,11 @@ const UsersPage = async() => {
                     <td>{User.created_at.toString().slice(0,10).split('-').reverse().join('-')}</td>
                     <td>
                         <div className={styles.botones}>
-                            <Link href="/dashboard/users/upd-user">
-                                <button className={`${styles.button} ${styles.ver}`}>Ver</button>
+                            <Link href={`/dashboard/users/upd-user/${User.rut}`}>
+                                <button className={`${styles.button} ${styles.ver}`}>Editar</button>
                             </Link>
                             <Link href={`/dashboard/users/reportes/${User.rut}`}>
-                                <button className={`${styles.button} ${styles.ver}`}>Reportes</button>
+                                <button className={`${styles.button} ${styles.report}`}>Reportes</button>
                             </Link>
                             <button className={`${styles.button} ${styles.delete}`}>Eliminar</button>
                         </div>

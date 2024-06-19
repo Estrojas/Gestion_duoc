@@ -1,5 +1,5 @@
 "use server"
-import {eliminarProspecto, ingresarCarrera, ingresarListaEspera, ingresarProspecto, ingresarSeguimiento, updateProspecto, updateCarrera } from './SupabaseClient'
+import {eliminarProspecto, ingresarCarrera, ingresarListaEspera, ingresarProspecto, ingresarSeguimiento, updateProspecto, updateCarrera, updateUsuario } from './SupabaseClient'
 import {Prospecto} from '../ModelosDatos/Prospecto'
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
@@ -289,6 +289,50 @@ export const modCarreraAction = async (formData: any): Promise<void> => {
     }
     redirect("/dashboard/carreras");
 
+}
+export const modUserAction = async (formData: any): Promise<void> => {
+
+    interface UpdatedFields {
+        nombre?: any;
+        apellido?: any;
+        correo?: any;
+        telefono?: any;
+        rol?: any;
+        [key: string]: any; // Esto es una firma de índice
+      }
+    
+    const {
+        rut,
+        dv,
+        nombre,
+        apellido,
+        correo,
+        telefono,
+        rol,
+    } = Object.fromEntries(formData);
+
+    const updatedFields: UpdatedFields = {
+        nombre,
+        apellido,
+        correo,
+        telefono,
+        rol,
+    }
+
+    Object.keys(updatedFields).forEach((key)=>
+        (updatedFields[key] === "" || undefined) && delete updatedFields[key]
+    )
+
+    try{
+        const {error} = await updateUsuario(updatedFields,rut);
+        if (error) {
+            console.log("error",error);
+        }
+    } catch(error) {
+        console.log("Error")
+        console.error(error);
+    }
+    redirect("/dashboard/users");
 }
 
 

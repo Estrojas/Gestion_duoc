@@ -53,6 +53,7 @@ const dashboard = () => {
                     <Card numero_prospectos={numPros} titulo="Numero de Prospectos Totales"/>
                     <Card numero_prospectos={numMat} titulo="Prospectos Matriculados Totales"/>
                     <Card numero_prospectos={numPen} titulo="Prospectos Pendientes Totales"/>
+                    <Card numero_prospectos={numNotMat} titulo="Prospectos No Matriculados Totales"/>
                 </div>
                 <Transactions/>
                 <Chart 
@@ -60,9 +61,6 @@ const dashboard = () => {
                         nameNoMatriculados="No Matriculados" num_not_mat={numNotMat} 
                         namePendientes="Pendientes" num_pen={numPen}/>
                     
-            </div>
-            <div className={styles.side}>
-                <RightBar/>
             </div>
             
         </div>

@@ -74,20 +74,25 @@ const supabase = createClient(supabaseUrl, supabaseKey);
         return { data, error };
       }
     }
-    export async function obtener2(q: string){
+    export async function obtener2(q: string,page: number){
       const regex = new RegExp(q,"i");
+      const ITEM_PER_PAGE = 10;
+      const start = (page - 1) * ITEM_PER_PAGE;
+      const end = start + ITEM_PER_PAGE - 1;
       console.log(q)
       if(q === ""){ //Si no hay nada en el input
-        const data = await supabase
+        const { data, error } = await supabase
         .from('Usuarios')
-        .select('*');
-        return data;
+        .select('*')
+        .range(start, end);
+        return { data, error };
       }else{
         const { data, error } = await supabase
         .from('Usuarios')
         .select('*')
-        .ilike('nombre', q);
-        return data;
+        .ilike('nombre', q)
+        .range(start, end);
+        return { data, error };
       }
     }
     export async function obtenerNumeroUsers() {
@@ -437,3 +442,11 @@ const supabase = createClient(supabaseUrl, supabaseKey);
       .eq('estado', 'No Matriculado');
       return { data, error };
   }
+  export async function updateUsuario(data: any, rut: number) {
+    const { error } = await supabase
+    .from('Usuarios')
+    .update(data)
+    .eq('rut', rut);
+    return { error };
+
+}

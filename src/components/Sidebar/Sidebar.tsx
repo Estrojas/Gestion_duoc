@@ -35,11 +35,6 @@ const menuItems = [
         path: "/dashboard/users/registrar-user/",
         icon: <MdOutlinePersonAdd/>
       },
-      {
-        title: "Modificar Usuario",
-        path: "/dashboard/users/upd-user/",
-        icon: <MdOutlinePersonSearch/>
-      },
       
     ]
   },

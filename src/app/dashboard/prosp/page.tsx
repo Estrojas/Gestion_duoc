@@ -3,7 +3,7 @@ import Search from '@/components/Search/Search';
 import styles from './props.module.css';
 import Link from 'next/link';
 import Pagination from '@/components/Pagination/Pagination';
-import { obtenerProspectos, obtener, numeroDeProspectos } from '@/app/Connection/SupabaseClient';
+import { obtener} from '@/app/Connection/SupabaseClient';
 import { useEffect, useState } from 'react';
 import { borrarProspectoAction } from '@/app/Connection/accion';
 
@@ -15,10 +15,7 @@ const ProspPage = /*async*/ ({searchParams}: Props) => {
 
     const q = searchParams?.q || "";
     const page = searchParams?.page || 1;
-    /*
-    const { data, error } = await obtener(q,page);
-    console.log(data)
-*/
+
     
     const [dataProps, setDataProps] = useState<any[]>([]);
     

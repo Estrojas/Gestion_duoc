@@ -14,34 +14,6 @@ const SingleProspect = async ({params} : {params: Params}) => {
     const prospecto :any = await obtenerProspecto(parseInt(id));
 
     const matriculador = await obtenerUser(prospecto.Matriculador);
-
-    /*
-    const [prospecto, setUser] = useState<Prospecto>({
-        rut: null,
-        dv: "",
-        nombre: "",
-        apellido: "",
-        correo: "",
-        telefono: null,
-        estado: 'Pendiente',
-        Matriculador: 19048645,
-        aut_corr: true,
-        aut_tel: false,
-      });
-
-      useEffect(() => {
-        const fetchData = async () => {
-            const {data, error} = await obtenerProspecto(parseInt(rut));
-            if(data){
-                console.log(data)
-                setUser(data);
-            }else{
-                console.log(error);
-            }
-        };
-    
-        fetchData();
-      });*/
     return(
         <div className={styles.container}>
             <div className={styles.infoContainer}>
