@@ -1,0 +1,33 @@
+.btn-bg-customer,
+.btn-bg-customer-danger,
+.btn-bg-customer-warning {
+  background-color: #151c2c;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-bg-customer:hover {
+  background-color: green;
+  font-weight: bold;
+}
+
+.btn-bg-customer-warning:hover {
+  color: black;
+  background-color: yellow;
+  font-weight: bold;
+}
+
+.btn-bg-customer-danger:hover {
+  background-color: red;
+  font-weight: bold;
+}
+
+.card{
+  color: white;
+  font-weight: bold;
+  background-color: #182237;
+}
+
+.card-text{
+  font-size: 13px;
+}

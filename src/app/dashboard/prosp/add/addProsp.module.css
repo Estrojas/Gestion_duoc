@@ -1,0 +1,77 @@
+.container{
+    background-color: var(--bgSoft);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+.form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.form input, .form textarea .form select{
+    background-color: var(--bg);
+    padding: 30px;
+    color: var(--text);
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+.form input{
+    width: 45%;
+    height: 10px;
+    color: var(--text);
+}
+.form text{
+    color: var(--text);
+}
+.form select{
+    background-color: var(--bg);
+    width: 45%;
+    height: 50px;
+    color: var(--text);
+    border: none;
+    border-radius: 5px;
+}
+.form button{
+    width: 45%;
+    padding: 30px;
+    background-color: teal;
+    color: var(--text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+.form .buttonCancel{
+    width: 45%;
+    padding: 30px;
+    background-color: crimson;
+    color: var(--text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px
+
+}
+.titulo{
+    color: var(--text);
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.containerCheck{
+    /*display: flex;*/
+    /*justify-content: space-between;*/
+    font-size: 15px;
+    font-weight: bold;
+    /*margin-bottom: 20px;*/
+}
+.buttonCancel{
+        padding: 10px;
+        background-color: crimson;
+        color: var(--text);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px;
+}
