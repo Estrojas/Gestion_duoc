@@ -1,11 +1,12 @@
 'use client'
+import styles from '@/components/dashboard.module.css';
 import Card from "@/components/Card/Card";
 import Chart from "@/components/Chart/Chart";
-import styles from '@/components/dashboard.module.css';
 import RightBar from "@/components/RightBar/RightBar";
 import Transactions from "@/components/Transactions/Transactions";
 import { useState , useEffect } from "react";
 import { numeroDeProspectos, obtenerProspectosPorEstado } from "../Connection/SupabaseClient";
+
 
 const dashboard = () => {
 

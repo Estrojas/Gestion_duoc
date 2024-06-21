@@ -2,10 +2,7 @@
 import { useState } from "react";
 import { User } from "../../ModelosDatos/User";
 import { obtenerProspectoForEmail } from "../../Connection/SupabaseClient";
-import { json } from "stream/consumers";
-import { POST } from "../../api/send/route";
 import styles from "./send-email.module.css";
-import axios from "axios";
 
 export default function send_email() {
   const [user, setUser] = useState<User>({
@@ -15,7 +12,7 @@ export default function send_email() {
     password: "",
     nombre: "",
     apellido: "",
-    rol: "",
+    rol: 'Administrativo',
     telefono: null,
   });
 

@@ -19,14 +19,14 @@ const addProsp = () => {
         <div className={styles.container}>
             <h1 className={styles.titulo}>Agregar Prospecto</h1>
             <form action={ingresarProspectoAction}  className={styles.form}>
-                <input type="number" placeholder="Rut" name='rut' /*value={pro.rut || ""} onChange={handleChange}*//>
-                <input type="text" placeholder="Dv" name='dv' /*value={pro.dv} onChange={handleChange}*//>
-                <input type="text" placeholder="Nombre" name='nombre' /*value={pro.nombre} onChange={handleChange}*/ />
-                <input type="text" placeholder="Apellido" name='apellido' /*value={pro.apellido} onChange={handleChange}*//>
-                <input type="email" placeholder="Correo" name='correo' /*value={pro.correo} onChange={handleChange}*//>
-                <input type="number" placeholder="Telefono" name='telefono' /*value={pro.telefono || ""} onChange={handleChange}*//>
+                <input type="number" required placeholder="Rut" name='rut' /*value={pro.rut || ""} onChange={handleChange}*//>
+                <input type="text" required placeholder="Dv" name='dv' /*value={pro.dv} onChange={handleChange}*//>
+                <input type="text" required placeholder="Nombre" name='nombre' /*value={pro.nombre} onChange={handleChange}*/ />
+                <input type="text" required placeholder="Apellido" name='apellido' /*value={pro.apellido} onChange={handleChange}*//>
+                <input type="email" required placeholder="Correo" name='correo' /*value={pro.correo} onChange={handleChange}*//>
+                <input type="number" required placeholder="Telefono" name='telefono' /*value={pro.telefono || ""} onChange={handleChange}*//>
                 <input type="hidden" name='Matriculador' value={matriculador} /*onChange={handleChange}*//>
-                <select name='estado' id="estado" /*onChange={handleChange}*/>
+                <select name='estado' required id="estado" /*onChange={handleChange}*/>
                     <option value="Pendiente">Elija un Estado</option>
                     <option value="Pendiente">Pendiente</option>
                     <option value="Matriculado">Matriculado</option>

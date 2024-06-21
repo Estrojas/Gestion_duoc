@@ -461,3 +461,11 @@ const supabase = createClient(supabaseUrl, supabaseKey);
     .eq('id_carr', id_carr);
     return { data, error };
   }
+
+  export async function obtenerProspectoForEmail(rut : any){
+    const { data, error } = await supabase
+    .from('Prospectos')
+    .select()
+    .eq('rut', rut);
+    return { data, error };
+  }
