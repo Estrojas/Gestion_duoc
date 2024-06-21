@@ -9,6 +9,7 @@ export default function RestorePage() {
   return (
     <>
       
+
 <div
   className="d-flex min-vh-100 flex-column justify-content-center p-4"
   style={{
@@ -40,6 +41,7 @@ export default function RestorePage() {
               name="email"
               placeholder="ejemplo@duocuc.cl"
             />
+
           </div>
           <div className="d-grid gap-2">
             <button type="submit" className="btn btn-bg-customer-warning d-block">
