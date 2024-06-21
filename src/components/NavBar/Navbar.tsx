@@ -10,13 +10,14 @@ export default function Navbar() {
     <div className={styles.container}>
       <div className={styles.tittle}>Gestion Prospectos Duoc</div>
       <div className={styles.menu}>
+        {/*}
         <div className={styles.search}>
           <MdSearch/>
           <input type="text" placeholder="Buscar" className={styles.input}/>
         </div>
+      {*/}
         <div className={styles.icons}>
-          <MdPublic size={20}/>
-          <MdNotifications size={20}/>
+          <img src="/img/logo_duoc_nav.png" alt="Logo" className="w-30 h-14" />
         </div>
       </div>
     </div>

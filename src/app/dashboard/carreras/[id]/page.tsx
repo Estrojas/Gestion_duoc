@@ -12,6 +12,7 @@ interface Params {
 const SingleCarrera = async ({params} : {params: Params}) => {
     const {id} = params;
     const carrera :any = await obtenerCarrera(id);
+    console.log("carrera",carrera);
 
     return(
         <div className={styles.container}>

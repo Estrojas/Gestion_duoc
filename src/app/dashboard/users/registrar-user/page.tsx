@@ -14,7 +14,7 @@ export default function CreateUserForm() {
     password: "",
     nombre: "",
     apellido: "",
-    rol: "",
+    rol: "Ayudante",
     telefono: null,
   });
 
@@ -69,7 +69,7 @@ export default function CreateUserForm() {
             password: "",
             nombre: "",
             apellido: "",
-            rol: "",
+            rol: "Ayudante",
             telefono: null,
           });
         }

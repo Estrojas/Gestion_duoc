@@ -7,7 +7,7 @@ export interface User {
     password: string;
     nombre: string;
     apellido: string;
-    rol: 'Administrativo' | 'Ayudante' |'';
+    rol: 'Administrativo' | 'Ayudante';
     telefono: number | null;
   }
 

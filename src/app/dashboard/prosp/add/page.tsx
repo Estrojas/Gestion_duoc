@@ -1,39 +1,19 @@
-//'use client';
-import { useState } from "react";
+'use client';
+import { useState,useEffect } from "react";
 import styles from "./addProsp.module.css";
 import { Prospecto, verifyRutProspecto } from "@/app/ModelosDatos/Prospecto";
 import { ingresarProspecto, obtenerProspecto } from "@/app/Connection/SupabaseClient";
 import {ingresarProspectoAction } from "@/app/Connection/accion";
 
 const addProsp = () => {
-/*
-    const [pro, setPro] = useState<Prospecto>({
-        rut: null,
-        dv: "",
-        nombre: "",
-        apellido: "",
-        correo: "",
-        telefono: null,
-        estado: 'Pendiente',
-        matriculador: null,
-        aut_corr: false,
-        aut_tel: false,
-      });
-    
-      function handleChange(event: { target: { name: any; value: any; }; }) {
-        setPro({
-          ...pro,
-          [event.target.name]: event.target.value
-        });
-      }
-      const [showModal, setShowModal] = useState(false);
-      const [modalMessage, setModalMessage] = useState("");
-      const closeModal = () => {
-        setShowModal(false);
-        setModalMessage("");
-      };
-*/
-    
+
+  const [matriculador, setMatriculador] = useState("");
+  useEffect(() => {
+    setMatriculador(localStorage.getItem('Rut') || "");
+
+  }, []);
+
+  console.log("Matriculado por: ",matriculador)
 
     return (
         <div className={styles.container}>
@@ -45,6 +25,7 @@ const addProsp = () => {
                 <input type="text" placeholder="Apellido" name='apellido' /*value={pro.apellido} onChange={handleChange}*//>
                 <input type="email" placeholder="Correo" name='correo' /*value={pro.correo} onChange={handleChange}*//>
                 <input type="number" placeholder="Telefono" name='telefono' /*value={pro.telefono || ""} onChange={handleChange}*//>
+                <input type="hidden" name='Matriculador' value={matriculador} /*onChange={handleChange}*//>
                 <select name='estado' id="estado" /*onChange={handleChange}*/>
                     <option value="Pendiente">Elija un Estado</option>
                     <option value="Pendiente">Pendiente</option>

@@ -33,20 +33,14 @@ const supabase = createClient(supabaseUrl, supabaseKey);
           return { data: null, error };
         }
     }
-    export async function obtenerUserForEmail(rut: number) {
+    export async function obtenerUserForEmail(email: string) {
       const { data, error } = await supabase
       .from('Usuarios')
       .select('*')
-      .eq('rut', rut);
+      .eq('correo', email);
       return { data, error };
   }
-  export async function obtenerProspectoForEmail(rut: number) {
-    const { data, error } = await supabase
-    .from('Prospectos')
-    .select('*')
-    .eq('rut', rut);
-    return { data, error };
-}
+
     export async function obtenerUsuarios(){
       let { data, error } = await supabase
       .from('Usuarios')
@@ -83,13 +77,15 @@ const supabase = createClient(supabaseUrl, supabaseKey);
       if(q === ""){ //Si no hay nada en el input
         const { data, error } = await supabase
         .from('Usuarios')
-        .select('*')
+        //.select('*')
+        .select('rut,dv, nombre, apellido, correo, telefono, rol, created_at')
         .range(start, end);
         return { data, error };
       }else{
         const { data, error } = await supabase
         .from('Usuarios')
-        .select('*')
+        //.select('*')
+        .select('rut,dv, nombre, apellido, correo, telefono, rol, created_at')
         .ilike('nombre', q)
         .range(start, end);
         return { data, error };
@@ -116,11 +112,14 @@ const supabase = createClient(supabaseUrl, supabaseKey);
     }
     export async function eliminarUser(rut: number) {
         const { data, error } = await supabase
-        .from('User')
+        .from('Usuarios')
         .delete()
         .eq('rut', rut);
+        console.log("data funcion",data);
+        console.log("error funcion",error);
         return { data, error };
     }
+
     export async function obtenerUserRut(rut: number) {
         const { data, error } = await supabase
         .from('Usuarios')
@@ -150,12 +149,15 @@ const supabase = createClient(supabaseUrl, supabaseKey);
         const { data, error } = await supabase
         .from('Prospectos')
         .insert([prospecto]);
+        console.log("data",data);
+        console.log("error",error);
         return { data, error };
     }
     export async function obtenerProspecto(rut: number) {
         const { data, error } = await supabase
         .from('Prospectos')
-        .select('*')
+        .select('*,telefono')
+        //.select('rut, nombre, apellido, correo, telefono, estado, Matriculador, created_at , aut_tel, aut_corr')
         .eq('rut', rut);
         if (data){
           return data[0];
@@ -271,7 +273,8 @@ const supabase = createClient(supabaseUrl, supabaseKey);
     export async function obtenerCarrera(id_carr: string) {
         const { data, error } = await supabase
         .from('Carreras')
-        .select('*')
+        //.select('*')
+        .select('id_carr, nombre_carr, cupos_di, cupos_vesp, precio_mat, mat_di, mat_vesp, tipo')
         .eq('id_carr', id_carr);
         if (data){
           return data[0];
@@ -283,7 +286,8 @@ const supabase = createClient(supabaseUrl, supabaseKey);
     export async function obtenerAllCarreras(){
         const { data, error } = await supabase
         .from('Carreras')
-        .select('*')
+        //.select('*')
+        .select('id_carr, nombre_carr, cupos_di, cupos_vesp, precio_mat, mat_di, mat_vesp, tipo')
         if(data){
           return data;
         }else{
@@ -450,3 +454,10 @@ const supabase = createClient(supabaseUrl, supabaseKey);
     return { error };
 
 }
+  export async function deleteCarrera(id_carr: string) {
+    const { data, error } = await supabase
+    .from('Carreras')
+    .delete()
+    .eq('id_carr', id_carr);
+    return { data, error };
+  }

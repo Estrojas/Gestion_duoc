@@ -43,8 +43,14 @@
     background-color: crimson;
 }
 .email{
-    background-color: limegreen;
+    background-color: rgba(50, 205, 50, 0.766);
 }
 .seguimiento{
-    background-color: #8c3d08;
+    background-color: #008b6d;
+}
+.lista{
+    background-color: #671674;
+}
+.head{
+    font-weight: bold;
 }

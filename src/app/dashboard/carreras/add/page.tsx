@@ -1,4 +1,5 @@
 
+import Link from "next/link";
 import styles from "./addCarrera.module.css";
 import {ingresarCarreraAction } from "@/app/Connection/accion";
 
@@ -20,9 +21,12 @@ const addCarrera = () => {
                 </select>
 
                 <button type="submit">Agregar</button>
+                {/*}<Link href="/dashboard/carreras">{*/}
                 <button type="button"className={styles.buttonCancel}>
                     Cancelar
               </button>
+                {/*}</form></Link>{*/}
+
             </form>
         </div>
     );

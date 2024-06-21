@@ -6,9 +6,10 @@
     align-items: center;
     justify-content: space-between;
 }
-.title{
+.tittle{
     color: var(--textSoft);
     font-weight: bold;
+    font-size: 20px;
     text-transform: capitalize;
 }
 .menu{

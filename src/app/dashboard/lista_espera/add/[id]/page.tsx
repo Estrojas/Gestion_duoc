@@ -29,7 +29,7 @@ const addLista = async ({params} : {params: Params}) => {
                 </select>
                 
                 <button type="submit">Agregar</button>
-                <Link href="/dashboard/seguimientos">
+                <Link href="/dashboard/prosp">
                     <button className={styles.buttonCancel}>
                         Cancelar
                     </button>

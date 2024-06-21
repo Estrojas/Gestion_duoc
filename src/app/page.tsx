@@ -6,6 +6,7 @@ import { useState } from 'react'; // Importa useState de react
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/navigation'
 import '../styles/login.css'
+import { obtenerUserForEmail } from './Connection/SupabaseClient';
 
 const supabaseUrl = 'https://pmuoxymxmexmjrpuwiuq.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBtdW94eW14bWV4bWpycHV3aXVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQwNjY5ODcsImV4cCI6MjAyOTY0Mjk4N30.ZXxrLp3Vs6uulEe96ITrN0Vty1PtxzCOAnLJ7ZOQ8qU';
@@ -15,10 +16,15 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+  const [nombre, setNombre] = useState('');
+  const [rol, setRol] = useState('');
+  const [apellido, setApellido] = useState('');
+
   const handleLogin = async (event: any) => {
     event.preventDefault();
 
     try {
+      console.log("email",email)
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -34,6 +40,18 @@ export default function LoginPage() {
       } else {
         console.log('Usuario autenticado:', data.user);
         localStorage.setItem('ID', data.user.id)
+        if (data.user){
+          const {data, error} = await obtenerUserForEmail(email || "");
+          if(data){
+            localStorage.setItem('Nombre', data[0].nombre);
+            localStorage.setItem('Apellido', data[0].apellido);
+            localStorage.setItem('Rol', data[0].rol);
+            localStorage.setItem('Rut', data[0].rut);
+          }
+        }
+        if (data.user && data.user.email){
+          localStorage.setItem('Email', data.user.email)
+        }
         router.push('/dashboard');
       }
     } catch (error) {
@@ -69,8 +87,8 @@ export default function LoginPage() {
                               </svg>
                               Correo Electrónico
                           </label>
-                          <input type="email"  placeholder="ejemplo@duocuc.cl" className="form-control form-control-sm"  value="" id="email"
-                              name="email" />
+                          <input type="email"  placeholder="ejemplo@duocuc.cl" className="form-control form-control-sm" id="email"
+                              name="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
                       </div>
                       <div className="mb-3">
                           <label className="form-label">
@@ -81,11 +99,11 @@ export default function LoginPage() {
                               </svg>
                               Contraseña
                           </label>
-                          <input type="password"   placeholder="********" className="form-control form-control-sm"  value="" id="password"
-                              name="password" />
+                          <input type="password"   placeholder="********" className="form-control form-control-sm" id="password"
+                              name="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
                       </div>
                       <div className="d-grid gap-2">
-                          <button type="submit" className="btn btn-bg-customer  fw-bold" >
+                          <button type="submit" className="btn btn-bg-customer  fw-bold" onClick={handleLogin}>
                               Ingresar
                           </button>
                       </div>

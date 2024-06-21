@@ -1,3 +1,8 @@
+.contenedorForm{
+    background-color: #f97416eb;
+    padding: 4px;
+    border-radius: 5px;
+}
 .container{
     background-color: var(--bgSoft);
     padding: 20px;
@@ -10,22 +15,21 @@
     justify-content: space-between;
 }
 .form input, .form textarea .form select{
-    background-color: var(--bg);
+    background-color: whitesmoke;
     padding: 30px;
-    color: var(--text);
+    color: black;
     border-radius: 5px;
     margin-bottom: 30px;
 }
 .form input{
     width: 45%;
     height: 10px;
-    color: var(--text);
+    color: black;
 }
 .form text{
-    color: var(--text);
+    color: black;
 }
 .form select{
-    margin-bottom: 30px;
     background-color: var(--bg);
     width: 45%;
     height: 50px;
@@ -34,8 +38,8 @@
     border-radius: 5px;
 }
 .form button{
-    width: 30%;
-    padding: 15px;
+    width: 45%;
+    padding: 30px;
     background-color: teal;
     color: var(--text);
     border: none;
@@ -44,8 +48,8 @@
     margin-top: 20px;
 }
 .form .buttonCancel{
-    width: 30%;
-    padding: 15px;
+    width: 45%;
+    padding: 30px;
     background-color: crimson;
     color: var(--text);
     border: none;
@@ -54,15 +58,9 @@
     margin-top: 20px
 
 }
-.form textarea{
-    margin-top: 10px;
-    width: 50px;
-    height: 50px;
-    color: var(--text);
-}
 .titulo{
     color: var(--text);
-    font-size: 25px;
+    font-size: 20px;
     margin-bottom: 20px;
     font-weight: bold;
 }
@@ -82,14 +80,12 @@
         cursor: pointer;
         margin: 10px;
 }
-.info{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-content: space-between;
-}
-
-.subtitulo{
+.button{
+    padding: 10px;
+    background-color: #5d57c9;
     color: var(--text);
-    font-size: 18px;
-    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
 }

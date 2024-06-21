@@ -1,10 +1,11 @@
-//'use client'
+'use client'
 import Search from '@/components/Search/Search';
 import styles from './user.module.css';
 import Link from 'next/link';
 import Pagination from '@/components/Pagination/Pagination';
 import { useEffect, useState } from 'react';
 import { obtener2 } from '@/app/Connection/SupabaseClient';
+import { borrarUsuarioAction } from '@/app/Connection/accion';
 
 
 interface Props {
@@ -12,42 +13,37 @@ interface Props {
   }
 
 
-const UsersPage = async({searchParams}: Props) => {
+const UsersPage = /*async*/({searchParams}: Props) => {
 
     const q = searchParams?.q || "";
     const page = searchParams?.page || 1;
 
-    const {data, error} = await obtener2(q,page);
-    console.log("usuarios",data)
-    /*
-    const [dataUsers, setDataUsers] = useState<any[]>([]);
+    const [dataUser, setData] = useState<any[]>([]);
+    const [rol, setRol] = useState<string>('');
 
-    
     useEffect(() => {
         const fetchData = async () => {
-            const {data, error} = await obtenerUsuarios();
+            const {data, error} = await obtener2(q,page);
             if(data){
-                console.log("flag3")
-                setDataUsers(data);
+                setData(data);
             }else{
                 console.log(error);
             }
         };
-    
+        setRol(localStorage.getItem('Rol') || '');
         fetchData();
-    }, []);
-    
-    useEffect(() => {
-      console.log("dataUsers", dataUsers);
-    }, [dataUsers]);
-    */
+    },[q,page]);
+
+
     return(
         <div className={styles.container}>
             <div className={styles.top}>
                 <Search placeholder='Buscar Usuario'/>
-                <Link href="/dashboard/users/registrar-user">
-                    <button className={styles.addButton}>Agregar Usuario</button>
-                </Link>
+                {rol === 'Administrativo' && (
+                    <Link href="/dashboard/users/registrar-user">
+                        <button className={styles.addButton}>Agregar Usuario</button>
+                    </Link>
+                )}
             </div>
             <table className={styles.table}>
                 <thead>
@@ -61,7 +57,7 @@ const UsersPage = async({searchParams}: Props) => {
                     </tr>
                 </thead>
                 <tbody>
-                {data && data.map((User) => (
+                {dataUser && dataUser.map((User) => (
                     <tr key={User.rut} >
                     <td>
                         <div className={styles.prosp}>
@@ -74,13 +70,20 @@ const UsersPage = async({searchParams}: Props) => {
                     <td>{User.created_at.toString().slice(0,10).split('-').reverse().join('-')}</td>
                     <td>
                         <div className={styles.botones}>
-                            <Link href={`/dashboard/users/upd-user/${User.rut}`}>
-                                <button className={`${styles.button} ${styles.ver}`}>Editar</button>
-                            </Link>
+                            {localStorage.getItem('Rol') === 'Administrativo' && (
+                                <Link href={`/dashboard/users/upd-user/${User.rut}`}>
+                                    <button className={`${styles.button} ${styles.ver}`}>Editar</button>
+                                </Link>
+                            )}
                             <Link href={`/dashboard/users/reportes/${User.rut}`}>
                                 <button className={`${styles.button} ${styles.report}`}>Reportes</button>
                             </Link>
-                            <button className={`${styles.button} ${styles.delete}`}>Eliminar</button>
+                            {rol === 'Administrativo' && (
+                                <form action={borrarUsuarioAction}>
+                                    <input type="hidden" name="rut" value={User.rut}/>
+                                    <button className={`${styles.button} ${styles.delete}`}>Eliminar</button>
+                            </form>
+                            )}
                         </div>
                     </td>
                     </tr>

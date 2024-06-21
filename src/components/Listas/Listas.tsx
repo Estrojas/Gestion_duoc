@@ -43,7 +43,7 @@ const Listas: React.FC<ListaProps> = ({id}) => {
                     <tr>
                         <td>Nombre</td>
                         <td>Estado</td>
-                        <td>Fecha</td>
+                        <td>Añadido el :</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,7 +58,6 @@ const Listas: React.FC<ListaProps> = ({id}) => {
                             <td>
                                 {lista.created_at.toString().slice(0,10).split('-').reverse().join('-')}
                             </td>
-
                        </tr> 
                     ))}
                 </tbody>

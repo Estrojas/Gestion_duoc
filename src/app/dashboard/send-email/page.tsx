@@ -96,7 +96,7 @@ export default function send_email() {
             name="correo"
             value={user.correo}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
+            className={styles.asunto}
             required
             type="email"
           />
@@ -108,7 +108,7 @@ export default function send_email() {
             name="asunto"
             value={email.asunto || ""} // Usa un string vacío como valor de respaldo
             onChange={handleEmail}
-            className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
+            className={styles.asunto}
             required
           />
           <label htmlFor="Mensaje" className={"block font-medium mb-2"}>
@@ -124,7 +124,6 @@ export default function send_email() {
             required
           ></textarea>
         </div>
-        <button type="submit"> Boton de Prueba</button>
       </form>
       <div>
         <button className={styles.enviar}

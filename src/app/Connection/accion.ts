@@ -1,5 +1,5 @@
 "use server"
-import {eliminarProspecto, ingresarCarrera, ingresarListaEspera, ingresarProspecto, ingresarSeguimiento, updateProspecto, updateCarrera, updateUsuario } from './SupabaseClient'
+import {eliminarProspecto, ingresarCarrera, ingresarListaEspera, ingresarProspecto, ingresarSeguimiento, updateProspecto, updateCarrera, updateUsuario, eliminarUser, deleteCarrera } from './SupabaseClient'
 import {Prospecto} from '../ModelosDatos/Prospecto'
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
@@ -19,6 +19,7 @@ export const ingresarProspectoAction = async (formData: any): Promise<void> => {
         estado,
         aut_corr,
         aut_tel,
+        Matriculador
     } = Object.fromEntries(formData);
 
     try{
@@ -32,7 +33,7 @@ export const ingresarProspectoAction = async (formData: any): Promise<void> => {
             estado: 'Pendiente',
             Matriculador: null,
             aut_corr: false,
-            aut_tel: false
+            aut_tel: false,
         };
         prospecto.rut = rut;
         prospecto.dv = dv;
@@ -41,7 +42,7 @@ export const ingresarProspectoAction = async (formData: any): Promise<void> => {
         prospecto.correo = correo;
         prospecto.telefono = telefono;
         prospecto.estado = estado;
-        prospecto.Matriculador = 19048645;
+        prospecto.Matriculador = Matriculador;
         prospecto.aut_corr = aut_corr === "true" ? true : false;
         prospecto.aut_tel = aut_tel === "true" ? true : false;
         console.log("flag");
@@ -333,6 +334,53 @@ export const modUserAction = async (formData: any): Promise<void> => {
         console.error(error);
     }
     redirect("/dashboard/users");
+}
+
+export const borrarUsuarioAction = async (formData: any): Promise<void> => {
+    console.log("flag")
+    const {rut} = Object.fromEntries(formData);
+
+    try{
+        console.log("rut",rut)
+        const {data, error} = await eliminarUser(rut);
+        console.log("data",data);
+        console.log("error",error);
+        //revalidatepath no funciona por el momento
+        if (data) {
+            console.log("Usuario eliminado");
+            console.log("data",data);
+            //redirect("/dashboard/prosp");
+        } else if (error) {
+            console.log("error",error);
+        }
+    } catch(error) {
+        console.log("Error")
+        console.error(error);
+    }
+    revalidatePath("/dashboard/users");
+}
+
+export const borrarCarreraAction = async (formData: any): Promise<void> => {
+    console.log("flag")
+    const {id_carr} = Object.fromEntries(formData);
+
+    try{
+        console.log("Flag 2")
+        const {data, error} = await deleteCarrera(id_carr);
+        revalidatePath("/dashboard/carreras");
+        //revalidatepath no funciona por el momento
+        if (data) {
+            console.log("Carrera eliminado");
+            console.log("data",data);
+            //redirect("/dashboard/prosp");
+        } else if (error) {
+            console.log("error",error);
+        }
+    } catch(error) {
+        console.log("Error")
+        console.error(error);
+    }
+    
 }
 
 

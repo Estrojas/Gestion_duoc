@@ -35,7 +35,7 @@ export default function RestorePage() {
               type="email"
               className="form-control form-control-sm"
               required
-              value=""
+              //value=""
               id="email"
               name="email"
               placeholder="ejemplo@duocuc.cl"

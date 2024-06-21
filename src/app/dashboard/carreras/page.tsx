@@ -5,20 +5,16 @@ import Link from 'next/link';
 import Pagination from '@/components/Pagination/Pagination';
 import { obtenerCarreras } from '@/app/Connection/SupabaseClient';
 import { useEffect, useState } from 'react';
-import { borrarProspectoAction } from '@/app/Connection/accion';
+import { borrarCarreraAction } from '@/app/Connection/accion';
 
 interface Props {
     searchParams: any; // Reemplaza 'any' con el tipo real de 'searchParams'
   }
 
-const CarrerasPage = /*async*/ ({searchParams}: Props) => {
+const CarrerasPage =  ({searchParams}: Props) => {
 
     const q = searchParams?.q || "";
     const page = searchParams?.page || 1;
-    /*
-    const { data, error } = await obtener(q,page);
-    console.log(data)
-*/
     
     const [dataCarr, setDataCarr] = useState<any[]>([]);
     
@@ -39,9 +35,11 @@ const CarrerasPage = /*async*/ ({searchParams}: Props) => {
         <div className={styles.container}>
             <div className={styles.top}>
                 <Search placeholder='Buscar Carrera'/>
-                <Link href="/dashboard/carreras/add">
-                    <button className={styles.addButton}>Crear</button>
-                </Link>
+                {localStorage.getItem('Rol') === 'Administrativo' && (
+                    <Link href="/dashboard/carreras/add">
+                        <button className={styles.addButton}>Crear Carrera</button>
+                    </Link>
+                )}
             </div>
             <table className={styles.table}>
                 <thead>
@@ -68,17 +66,21 @@ const CarrerasPage = /*async*/ ({searchParams}: Props) => {
                         <td>{Carrera.tipo}</td>
                         <td>
                             <div className={styles.botones}>
-                                <Link href={`/dashboard/carreras/${Carrera.id_carr}`}>
-                                    <button className={`${styles.button} ${styles.ver}`}>Ver</button>
-                                </Link>
+                                {localStorage.getItem('Rol') === 'Administrativo' && (
+                                    <Link href={`/dashboard/carreras/${Carrera.id_carr}`}>
+                                        <button className={`${styles.button} ${styles.ver}`}>Editar</button>
+                                    </Link>
+                                )}
                                 <Link href={`/dashboard/carreras/reportes/${Carrera.id_carr}`}>
                                     <button className={`${styles.button} ${styles.reportes}`}>Reportes</button>
                                 </Link>
-                                <form action={borrarProspectoAction}>
-                                    <input type="hidden" name="rut" value={Carrera.id_carr}/>
-                                    <button className={`${styles.button} ${styles.delete}`}>Eliminar</button>
-                                </form>
                                 
+                                {localStorage.getItem('Rol') === 'Administrativo' && (
+                                    <form action={borrarCarreraAction}>
+                                        <input type="hidden" name="id_carr" value={Carrera.id_carr}/>
+                                        <button className={`${styles.button} ${styles.delete}`}>Eliminar</button>
+                                    </form>
+                                )}
                             </div>
                         </td>
                         </tr>

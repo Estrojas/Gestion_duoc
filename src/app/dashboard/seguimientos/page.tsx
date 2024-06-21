@@ -7,17 +7,13 @@ import { obtenerSeguimientos, obtener, numeroDeProspectos, obtenerSeguimientosPr
 import { useEffect, useState } from 'react';
 
 interface Props {
-    searchParams: any; // Reemplaza 'any' con el tipo real de 'searchParams'
+    searchParams: any; 
   }
 
-const SegPage = /*async*/ ({searchParams}: Props) => {
+const SegPage = ({searchParams}: Props) => {
 
     const q = searchParams?.q || "";
     const page = searchParams?.page || 1;
-    /*
-    const { data, error } = await obtener(q,page);
-    console.log(data)
-*/
     
     const [dataProps, setDataProps] = useState<any[]>([]);
     const [dataPrueba, setDataPrueba] = useState<any[]>();
@@ -33,8 +29,6 @@ const SegPage = /*async*/ ({searchParams}: Props) => {
 
         fetchData();
     },[q,page]);
-    
-    console.log("dataProps",dataProps);
 
 
 
