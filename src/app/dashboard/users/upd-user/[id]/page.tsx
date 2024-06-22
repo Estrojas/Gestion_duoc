@@ -16,17 +16,17 @@ const SingleUser = async ({params} : {params: Params}) => {
             <div className={styles.formContainer}>
                 <form action={modUserAction} className={styles.form}>
                     <label> Nombre Prospecto</label>
-                    <input className="text-black" type="text" required placeholder={matriculador.nombre} name='nombre' />
+                    <input className="text-black" type="text" placeholder={matriculador.nombre} name='nombre' />
                     <label> Apellido Prospecto</label>
-                    <input className="text-black" type="text" required placeholder={matriculador.apellido} name='apellido' />
+                    <input className="text-black" type="text" placeholder={matriculador.apellido} name='apellido' />
                     <label> Correo</label>
-                    <input className="text-black" required type="text" placeholder={matriculador.correo} name='correo' />
+                    <input className="text-black"  type="text" placeholder={matriculador.correo} name='correo' />
                     <label> Telefono</label>
-                    <input className="text-black" required type="number" placeholder={matriculador.telefono} name='telefono' />
+                    <input className="text-black"  type="number" placeholder={matriculador.telefono} name='telefono' />
                     <input type="hidden" name="rut" value={matriculador.rut}/>
                     <input type="hidden" name="dv" value={matriculador.dv}/>
                     <label> Rol</label>
-                    <select name='rol' id="rol" required>
+                    <select name='rol' id="rol" >
                         <option value={matriculador.estado}>{matriculador.estado}</option>
                         <option value="Ayudante">Ayudante</option>
                         <option value="Administrativo">Administrativo</option>
