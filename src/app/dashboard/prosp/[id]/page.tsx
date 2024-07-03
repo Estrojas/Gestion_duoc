@@ -2,7 +2,7 @@
 import { Prospecto } from "@/app/ModelosDatos/Prospecto";
 import styles from "./SingleProspect.module.css";
 import { useState, useEffect } from "react";
-import { obtenerProspecto, obtenerUser } from "@/app/Connection/SupabaseClient";
+import { obtenerProspecto, obtenerUser,obtenerCarreras2 } from "@/app/Connection/SupabaseClient";
 import { modProspectoAction } from "@/app/Connection/accion";
 
 interface Params {
@@ -14,6 +14,9 @@ const SingleProspect = async ({params} : {params: Params}) => {
     const prospecto :any = await obtenerProspecto(parseInt(id));
 
     const matriculador = await obtenerUser(prospecto.Matriculador);
+
+    //const carreras = await obtenerCarreras2();
+
     return(
         <div className={styles.container}>
             <div className={styles.infoContainer}>
@@ -47,6 +50,7 @@ const SingleProspect = async ({params} : {params: Params}) => {
                         <option value="Matriculado">Matriculado</option>
                         <option value="No matriculado">No matriculado</option>
                     </select>
+
                     <button type="submit">Modificar</button>
                 </form>
             </div>

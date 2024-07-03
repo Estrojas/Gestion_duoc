@@ -2,6 +2,7 @@
 import { obtenerUser, obtenerProsPend,obtenerProsMat,
         obtenerProspectosPorMatriculador } from "@/app/Connection/SupabaseClient";
 import Card from "@/components/Card/Card";
+import CardPorc from "@/components/CardPorc/CardPorc";
 import ListaPendientes from "@/components/ListaPendientes/ListaPendientes";
 import styles from './repUsers.module.css';
 import { useState , useEffect } from "react";
@@ -59,6 +60,8 @@ const reportesUserPage = ({params} : {params: Params}) => {
         fetchData();
         fetchPend();
     }, []);
+
+
     
     return (
         <div className={styles.wrapper}>
@@ -68,6 +71,7 @@ const reportesUserPage = ({params} : {params: Params}) => {
                     <Card numero_prospectos={numTotalProspectos} titulo="Numero de Prospectos Atendidos"/>
                     <Card numero_prospectos={numMatriculados} titulo="N° Prospectos Matriculados"/>
                     <Card numero_prospectos={numPend} titulo="N° Prospectos Pendientes"/>
+                    <CardPorc numero_prospectos={Math.round((numMatriculados/numTotalProspectos)*100)} titulo="Porcentaje de Conversion"/>
                 </div>
                 <ListaPendientes id={id}/>
             </div>

@@ -2,13 +2,24 @@
 import { useState,useEffect } from "react";
 import styles from "./addProsp.module.css";
 import { Prospecto, verifyRutProspecto } from "@/app/ModelosDatos/Prospecto";
-import { ingresarProspecto, obtenerProspecto } from "@/app/Connection/SupabaseClient";
+import { ingresarProspecto, obtenerCarreras2, obtenerProspecto } from "@/app/Connection/SupabaseClient";
 import {ingresarProspectoAction } from "@/app/Connection/accion";
+import { AnyAaaaRecord } from "dns";
 
 const addProsp = () => {
 
   const [matriculador, setMatriculador] = useState("");
+  const [carreras, setCarreras] = useState<any[]>([]);
   useEffect(() => {
+    const fecthCarreras  = async () => {
+      const {data,error} = await obtenerCarreras2();
+      if(data){
+        setCarreras(data);
+      }else{
+        console.log("Error al obtener carreras");
+      }
+    }
+    fecthCarreras();
     setMatriculador(localStorage.getItem('Rut') || "");
 
   }, []);
@@ -31,6 +42,24 @@ const addProsp = () => {
                     <option value="Pendiente">Pendiente</option>
                     <option value="Matriculado">Matriculado</option>
                     <option value="No matriculado">No matriculado</option>
+                </select>
+                <select name="carr_1">
+                    <option value="No">Carrera de Interes 1</option>
+                    {Array.isArray(carreras) && carreras.map((carrera) => (  
+                        <option key={carrera.id_carr} value={carrera.nombre_carr}>{carrera.nombre_carr}</option>
+                    ))}
+                </select>
+                <select name="carr_2">
+                    <option value="No">Carrera de Interes 2</option>
+                    {Array.isArray(carreras) && carreras.map((carrera) => (  
+                        <option key={carrera.id_carr} value={carrera.nombre_carr}>{carrera.nombre_carr}</option>
+                    ))}
+                </select>
+                <select name="carr_3">
+                    <option value="No">Carrera de Interes 3</option>
+                    {Array.isArray(carreras) && carreras.map((carrera) => (  
+                        <option key={carrera.id_carr} value={carrera.nombre_carr}>{carrera.nombre_carr}</option>
+                    ))}
                 </select>
                 <div className={styles.containerCheck}>
                   <input type="checkbox" name="aut_tel" value="true"></input>

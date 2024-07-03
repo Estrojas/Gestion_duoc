@@ -11,6 +11,7 @@ import {
   updateUsuario,
   eliminarUser,
   deleteCarrera,
+  eliminarSeguimiento,
 } from "./SupabaseClient";
 import { Prospecto } from "../ModelosDatos/Prospecto";
 import { redirect } from "next/navigation";
@@ -33,6 +34,9 @@ export const ingresarProspectoAction = async (formData: any): Promise<void> => {
     aut_corr,
     aut_tel,
     Matriculador,
+    carr_1,
+    carr_2,
+    carr_3,
   } = Object.fromEntries(formData);
 
   try {
@@ -47,6 +51,9 @@ export const ingresarProspectoAction = async (formData: any): Promise<void> => {
       Matriculador: null,
       aut_corr: false,
       aut_tel: false,
+      carr_1: null,
+      carr_2: null,
+      carr_3: null,
     };
     prospecto.rut = rut;
     prospecto.dv = dv;
@@ -58,6 +65,9 @@ export const ingresarProspectoAction = async (formData: any): Promise<void> => {
     prospecto.Matriculador = Matriculador;
     prospecto.aut_corr = aut_corr === "true" ? true : false;
     prospecto.aut_tel = aut_tel === "true" ? true : false;
+    prospecto.carr_1 = carr_1 === "No" ? null : carr_1;
+    prospecto.carr_2 = carr_2 === "No" ? null : carr_2;
+    prospecto.carr_3 = carr_3 === "No" ? null : carr_3;
     console.log("flag");
     console.log(prospecto);
 
@@ -386,4 +396,20 @@ export const borrarCarreraAction = async (formData: any): Promise<void> => {
     console.log("Error");
     console.error(error);
   }
+};
+
+export const borrarSeguimientoAction = async (formData: any): Promise<void> => {
+  const { id } = Object.fromEntries(formData);
+
+  try {
+    console.log("id_seg", id);
+    const { data, error } = await eliminarSeguimiento(id);
+    revalidatePath("/dashboard/seguimientos");
+    
+    //revalidatepath no funciona por el momento
+  } catch (error) {
+    console.log("Error");
+    console.error(error);
+  }
+  redirect("/dashboard/seguimientos");
 };

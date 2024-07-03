@@ -27,6 +27,7 @@ const addSeguimiento = async ({params} : {params: Params}) => {
                 {prospecto.aut_corr ? (
                     <h1 className={styles.subtitulo}>Autorización para Enviar correo: Si</h1>
                 ) : <h1 className={styles.subtitulo}>Autorización para Enviar correo: No</h1>}
+                <h1 className={styles.subtitulo}> Carreras de Interes: {prospecto.carr_1|| "No"}{"/"}{prospecto.carr_2 || "No"}{"/"}{prospecto.carr_3 || "No"}</h1>
             </div>
             <form action={ingresarSeguimientoAction}  className={styles.form}>
                 <input type="hidden" name="rut_pro" value={parseInt(id)}></input>

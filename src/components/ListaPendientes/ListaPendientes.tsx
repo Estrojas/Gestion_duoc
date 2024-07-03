@@ -60,7 +60,7 @@ const Listas: React.FC<ListaProps> = ({id}) => {
                                 {Pros.telefono || "No tiene telefono"}
                             </td>
                             <td>
-                                {Pros.created_at.toString().slice(0,10).split('-').reverse().join('-')}
+                                {Pros.created_at.toString().slice(0,10).split('-').reverse().join('-')}{" / "}{Pros.created_at.toString().slice(11,19)}
                             </td>
 
                        </tr> 

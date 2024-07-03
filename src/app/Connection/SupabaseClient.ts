@@ -294,6 +294,12 @@ const supabase = createClient(supabaseUrl, supabaseKey);
           return { data: null, error };
         }
     }
+    export async function obtenerCarreras2(){
+        const { data, error } = await supabase
+        .from('Carreras')
+        .select('*')
+        return { data, error };
+    }
     export async function ingresarSeguimiento(seguimiento: Seguimiento) {
         const { data, error } = await supabase
         .from('seguimiento')
@@ -467,5 +473,13 @@ const supabase = createClient(supabaseUrl, supabaseKey);
     .from('Prospectos')
     .select()
     .eq('rut', rut);
+    return { data, error };
+  }
+
+  export async function eliminarSeguimiento(id: number) {
+    const { data, error } = await supabase
+    .from('seguimiento')
+    .delete()
+    .eq('id', id);
     return { data, error };
   }

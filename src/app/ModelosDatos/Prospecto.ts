@@ -9,6 +9,9 @@ export interface Prospecto {
     Matriculador: number | null;
     aut_corr: boolean;
     aut_tel: boolean;
+    carr_1: string | null;
+    carr_2: string | null;
+    carr_3: string | null;
 }
 
 export function verifyRutProspecto(prosp: Prospecto): boolean {
