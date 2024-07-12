@@ -227,8 +227,8 @@ export default function CreateUserForm() {
         </form>
       </div>
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-black rounded-lg shadow-md p-6 max-w-md">
+        <div className={styles.modal}>
+          <div className={styles.contenido}>
             <p className="mb-4">{modalMessage}</p>
             <button
               type="button"

@@ -5,6 +5,7 @@ import { Prospecto, verifyRutProspecto } from "@/app/ModelosDatos/Prospecto";
 import { ingresarProspecto, obtenerCarreras2, obtenerProspecto } from "@/app/Connection/SupabaseClient";
 import {ingresarProspectoAction } from "@/app/Connection/accion";
 import { AnyAaaaRecord } from "dns";
+import Link from "next/link";
 
 const addProsp = () => {
 
@@ -29,6 +30,7 @@ const addProsp = () => {
     return (
         <div className={styles.container}>
             <h1 className={styles.titulo}>Agregar Prospecto</h1>
+
             <form action={ingresarProspectoAction}  className={styles.form}>
                 <input type="number" required placeholder="Rut" name='rut' /*value={pro.rut || ""} onChange={handleChange}*//>
                 <input type="text" required placeholder="Dv" name='dv' /*value={pro.dv} onChange={handleChange}*//>
@@ -70,10 +72,12 @@ const addProsp = () => {
 
                 
                 <button type="submit">Agregar</button>
+            </form>
+            <Link href="/dashboard/prosp">
                 <button type="button"className={styles.buttonCancel}>
                     Cancelar
-              </button>
-            </form>
+                </button>
+            </Link>
         </div>
     );
 };

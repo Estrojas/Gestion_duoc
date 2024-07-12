@@ -2,6 +2,7 @@ import { obtenerListaEspera } from '@/app/Connection/SupabaseClient';
 import styles from './Listas.module.css';
 import Image from 'next/image';
 import { useState , useEffect } from 'react';
+import { borrarListaEsperaAction } from '@/app/Connection/accion';
 interface ListaProps {
     id: String;
 
@@ -44,6 +45,7 @@ const Listas: React.FC<ListaProps> = ({id}) => {
                         <td>Nombre</td>
                         <td>Estado</td>
                         <td>Añadido el :</td>
+                        <td>accion</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,7 +58,14 @@ const Listas: React.FC<ListaProps> = ({id}) => {
                                 <span className={`${styles.status} ${getEstado(lista.Prospectos.estado)}`}>{lista.Prospectos.estado}</span>
                             </td>
                             <td>
-                                {lista.created_at.toString().slice(0,10).split('-').reverse().join('-')}
+                                {lista.created_at.toString().slice(0,10).split('-').reverse().join('-')}{" "}{lista.created_at.toString().slice(11,19)}
+                            </td>
+                            <td>
+                                <form action={borrarListaEsperaAction}>
+                                    <input type='hidden' name='rut_pro_lista' value={lista.rut_pro_lista}/>
+                                    <input type='hidden' name='id_carr_lista' value={id.toString()}/>
+                                    <button type='submit' className={styles.delete}>Eliminar</button>
+                                </form>
                             </td>
                        </tr> 
                     ))}

@@ -139,12 +139,28 @@ export default function send_email() {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
-            }); 
+            });
+            setModalMessage("Email enviado");
+            setShowModal(true); 
           }}
         >
           Enviar Email
         </button>
       </div>
+      {showModal && (
+        <div className={styles.modal}>
+          <div className={styles.contenido}>
+            <p className="mb-4">{modalMessage}</p>
+            <button
+              type="button"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onClick={closeModal}
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

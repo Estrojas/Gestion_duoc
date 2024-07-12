@@ -37,7 +37,7 @@ const Transactions =  () => {
                     <tr>
                         <td>Nombre</td>
                         <td>Estado</td>
-                        <td>Fecha</td>
+                        <td>Creado el</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,7 +50,7 @@ const Transactions =  () => {
                                 <span className={`${styles.status} ${getEstado(Prospecto.estado)}`}>{Prospecto.estado}</span>
                             </td>
                             <td>
-                                {Prospecto.created_at.toString().slice(0,10).split('-').reverse().join('-')}
+                                {Prospecto.created_at.toString().slice(0,10).split('-').reverse().join('-')}{" "}{Prospecto.created_at.toString().slice(11,19)}
                             </td>
 
                        </tr> 

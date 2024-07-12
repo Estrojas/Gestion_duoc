@@ -21,7 +21,7 @@
     display: flex;
     flex-direction: column;
 }
-.form input, .form textarea{
+.form input, .form textarea, .form select{
     background-color: var(--bg);
     padding: 20px;
     color: var(--text);
@@ -34,8 +34,7 @@
 }
 .form select{
     padding: 20px;
-    color: #2e374a;
-    border: 2px solid #2e374a;
+    color: var(--text);
     border-radius: 5px;
     margin: 10px 0px;
 }
@@ -60,4 +59,19 @@
     font-size: 20px;
     margin-bottom: 20px;
     text-align: center;
+}
+.infoProspectoCarrera{
+    color: var(--text);
+    margin-bottom: 20px;
+    text-align: center;
+}
+.buttonCancel{
+    width: 45%;
+    padding: 20px;
+    background-color: crimson;
+    color: var(--text);
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
 }
