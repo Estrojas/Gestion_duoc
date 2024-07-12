@@ -1,7 +1,7 @@
 'use client'
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Prospecto } from "../ModelosDatos/Prospecto";
-import { ingresarProspecto } from "../Connection/SupabaseClient";
+import { ingresarProspecto, obtenerCarreras2 } from "../Connection/SupabaseClient";
 import styles from "./formulario.module.css";
 import Notiflix from 'notiflix';
 
@@ -18,7 +18,11 @@ const FormularioProspectos = () => {
         Matriculador: null,
         aut_corr: false,
         aut_tel: false,
+        carr_1: null,
+        carr_2: null,
+        carr_3: null,
     });
+    const [carreras, setCarreras] = useState<any[]>([]);
 
     Notiflix.Report.init({
       backgroundColor : '#182237',
@@ -97,6 +101,9 @@ const FormularioProspectos = () => {
                     Matriculador: null,
                     aut_corr: false,
                     aut_tel: false,
+                    carr_1: null,
+                    carr_2: null,
+                    carr_3: null,
                 });
 
                 Notiflix.Report.success("Exito", "Se ha registrado un prospecto", "OK")
@@ -106,6 +113,18 @@ const FormularioProspectos = () => {
             }
         }
     };
+
+    useEffect(() => {
+        const fecthCarreras = async () => {
+            const { data, error } = await obtenerCarreras2();
+            if (data) {
+                setCarreras(data);
+            } else {
+                console.log("Error al obtener carreras");
+            }
+        }
+        fecthCarreras();
+    }, []);
 
     return (
         <div className="flex flex-col h-screen">
@@ -132,7 +151,7 @@ const FormularioProspectos = () => {
                                 type="number"
                                 id="rut"
                                 name="rut"
-                                value={prospecto.rut || ""}
+                                value={prospecto.rut || null}
                                 onChange={handleChange}
                                 className="w-full border border-gray-300 rounded-md py-2 px-3 text-black"
                                 required
@@ -213,6 +232,30 @@ const FormularioProspectos = () => {
                                 required
                             />
                             {errors.telefono && <span className="text-red-500">{errors.telefono}</span>}
+                        </div>
+                        <div>
+                        <select name="carr_1" className={styles.select}>
+                            <option value="No">Carrera de Interes 1</option>
+                            {Array.isArray(carreras) && carreras.map((carrera) => (  
+                                <option key={carrera.id_carr} value={carrera.nombre_carr}>{carrera.nombre_carr}</option>
+                            ))}
+                        </select>
+                        </div>
+                        <div>
+                        <select name="carr_2" className={styles.select}>
+                            <option value="No">Carrera de Interes 2</option>
+                            {Array.isArray(carreras) && carreras.map((carrera) => (  
+                                <option key={carrera.id_carr} value={carrera.nombre_carr}>{carrera.nombre_carr}</option>
+                            ))}
+                        </select>
+                        </div>
+                        <div>
+                        <select name="carr_3" className={styles.select}>
+                            <option value="No">Carrera de Interes 3</option>
+                            {Array.isArray(carreras) && carreras.map((carrera) => (  
+                                <option key={carrera.id_carr} value={carrera.nombre_carr}>{carrera.nombre_carr}</option>
+                            ))}
+                        </select>
                         </div>
                         <div>
                             <label htmlFor="aut_tel" className="block font-medium mb-2">

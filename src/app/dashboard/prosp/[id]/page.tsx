@@ -2,8 +2,9 @@
 import { Prospecto } from "@/app/ModelosDatos/Prospecto";
 import styles from "./SingleProspect.module.css";
 import { useState, useEffect } from "react";
-import { obtenerProspecto, obtenerUser,obtenerCarreras2 } from "@/app/Connection/SupabaseClient";
+import { obtenerProspecto2, obtenerUser,obtenerCarreras2 } from "@/app/Connection/SupabaseClient";
 import { modProspectoAction } from "@/app/Connection/accion";
+import Link from "next/link";
 
 interface Params {
     id: string;
@@ -11,18 +12,46 @@ interface Params {
 
 const SingleProspect = async ({params} : {params: Params}) => {
     const {id} = params;
-    const prospecto :any = await obtenerProspecto(parseInt(id));
+    /*
+    const [prospecto, setProspecto] = useState<Prospecto>();
+    const [matriculador, setMatriculador] = useState<any>();
+    const [carreras, setCarreras] = useState<any[]>([]);
+    useEffect(() => {
+        const fecthCarreras  = async () => {
+            const {data,error} = await obtenerCarreras2();
+            if(data){
+                setCarreras(data);
+            }else{
+                console.log("Error al obtener carreras");
+            }
+        }
+        const fecthProspecto = async () => {
+            const prospecto = await obtenerProspecto(parseInt(id));
+            setProspecto(prospecto);
+            const matriculador = await obtenerUser(prospecto.Matriculador);
+            setMatriculador(matriculador);
+        }
+        fecthProspecto();
+        fecthCarreras();
+    }, []);*/
+    const prospecto :any = await obtenerProspecto2(parseInt(id));
 
     const matriculador = await obtenerUser(prospecto.Matriculador);
 
-    //const carreras = await obtenerCarreras2();
+    const {data,error} = await obtenerCarreras2();
+    const carreras = data;
 
     return(
         <div className={styles.container}>
             <div className={styles.infoContainer}>
+                {}
                 <h2 className={styles.titulo}>Información Prospecto</h2>
                 <h2 className={styles.infoProspecto}>{prospecto.rut}-{prospecto.dv}</h2>
                 <h2 className={styles.infoProspecto}>{prospecto.nombre} {prospecto.apellido}</h2>
+                <h4 className={styles.infoProspectoCarrera}>Carrera de Interes:</h4>
+                <h4 className={styles.infoProspectoCarrera}>{prospecto.carr_1 || "Sin carrera de interes"}</h4>
+                <h4 className={styles.infoProspectoCarrera}>{prospecto.carr_2 || "Sin carrera de interes"}</h4>
+                <h4 className={styles.infoProspectoCarrera}>{prospecto.carr_3 || "Sin carrera de interes"}</h4>
                 <h1 className={styles.titulo}>Matriculado por</h1>
                 <h2 className={styles.infoProspecto}>{matriculador.nombre} {matriculador.apellido}</h2>
                 <h2 className={styles.infoProspecto}>El {prospecto.created_at.toString().slice(0,10).split('-').reverse().join('-')}</h2>
@@ -50,9 +79,36 @@ const SingleProspect = async ({params} : {params: Params}) => {
                         <option value="Matriculado">Matriculado</option>
                         <option value="No matriculado">No matriculado</option>
                     </select>
+                    <select name="carr_1">
+                        <option value={prospecto.carr_1}>Carrera de Interes 1</option>
+                        <option value="No">Sin carrera de interes</option>
+                        {Array.isArray(carreras) && carreras.map((carrera) => (  
+                            <option key={carrera.id_carr} value={carrera.nombre_carr}>{carrera.nombre_carr}</option>
+                        ))}
+                    </select>
+                    <select name="carr_2">
+                        <option value={prospecto.carr_2}>Carrera de Interes 2</option>
+                        <option value="No">Sin carrera de interes</option>
+                        {Array.isArray(carreras) && carreras.map((carrera) => (  
+                            <option key={carrera.id_carr} value={carrera.nombre_carr}>{carrera.nombre_carr}</option>
+                        ))}
+                    </select>
+                    <select name="carr_3">
+                        <option value={prospecto.carr_3}>Carrera de Interes 3</option>
+                        <option value="No">Sin carrera de interes</option>
+                        {Array.isArray(carreras) && carreras.map((carrera) => (  
+                            <option key={carrera.id_carr} value={carrera.nombre_carr}>{carrera.nombre_carr}</option>
+                        ))}
+                    </select>
 
                     <button type="submit">Modificar</button>
+
                 </form>
+                <Link href="/dashboard/prosp">
+                        <button type="button" className={styles.buttonCancel}>
+                            Cancelar
+                        </button>
+                    </Link>
             </div>
         </div>
     );

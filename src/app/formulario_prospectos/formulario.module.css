@@ -14,12 +14,31 @@
     flex-wrap: wrap;
     justify-content: space-between;
 }
-.form input, .form textarea .form select{
+.form input, .form textarea{
+    background-color: var(--bg);
+    padding: 30px;
+    color: black;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+.form select{
     background-color: whitesmoke;
     padding: 30px;
     color: black;
     border-radius: 5px;
     margin-bottom: 30px;
+    margin-top: 20px;
+    padding: 10px;
+}
+.select{
+    background-color: whitesmoke;
+    padding: 30px;
+    color: black;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
 }
 .form input{
     width: 45%;
@@ -29,6 +48,7 @@
 .form text{
     color: black;
 }
+/*
 .form select{
     background-color: var(--bg);
     width: 45%;
@@ -36,7 +56,7 @@
     color: var(--text);
     border: none;
     border-radius: 5px;
-}
+}*/
 .form button{
     width: 45%;
     padding: 30px;

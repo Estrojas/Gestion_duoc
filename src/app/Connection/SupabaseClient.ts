@@ -156,14 +156,25 @@ const supabase = createClient(supabaseUrl, supabaseKey);
     export async function obtenerProspecto(rut: number) {
         const { data, error } = await supabase
         .from('Prospectos')
-        .select('*,telefono')
-        //.select('rut, nombre, apellido, correo, telefono, estado, Matriculador, created_at , aut_tel, aut_corr')
+        .select('*, telefono, carr_1, carr_2, carr_3')
+        //.select('rut, dv, nombre, apellido, correo, telefono, estado, Matriculador, created_at , aut_tel, aut_corr, carr_1, carr_2, carr_3')
         .eq('rut', rut);
         if (data){
           return data[0];
         }else{
           return { data: null, error };
         }
+    }
+    export async function obtenerProspecto2(rut: number) {
+      const { data, error } = await supabase
+      .from('Prospectos')
+      .select('*')
+      .eq('rut', rut);
+      if (data){
+        return data[0];
+      }else{
+        return { data: null, error };
+      }
     }
     export async function obtenerProspectos() {
         const { data, error } = await supabase
@@ -259,6 +270,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
         const { data, error } = await supabase
         .from('Carreras')
         .select('*')
+        .order('nombre_carr', {ascending: true})
         .range(start, end);
         return { data, error };
       }else{
@@ -481,5 +493,14 @@ const supabase = createClient(supabaseUrl, supabaseKey);
     .from('seguimiento')
     .delete()
     .eq('id', id);
+    return { data, error };
+  }
+
+  export async function eliminarListaEspera(rut_pro_lista: number, id_carr_lista: string) {
+    const { data, error } = await supabase
+    .from('lista_espera')
+    .delete()
+    .eq('rut_pro_lista', rut_pro_lista)
+    .eq('id_carr_lista', id_carr_lista);
     return { data, error };
   }

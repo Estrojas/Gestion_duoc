@@ -12,6 +12,7 @@ import {
   eliminarUser,
   deleteCarrera,
   eliminarSeguimiento,
+  eliminarListaEspera,
 } from "./SupabaseClient";
 import { Prospecto } from "../ModelosDatos/Prospecto";
 import { redirect } from "next/navigation";
@@ -19,6 +20,7 @@ import { revalidatePath } from "next/cache";
 import { Carrera } from "../ModelosDatos/Carrera";
 import { Seguimiento } from "../ModelosDatos/seguimiento";
 import { listaEspera } from "../ModelosDatos/listaEspera";
+import Router from 'next/router';
 
 
 
@@ -118,6 +120,9 @@ export const modProspectoAction = async (formData: any): Promise<void> => {
     Matriculador?: any;
     aut_corr?: any;
     aut_tel?: any;
+    carr_1?: any;
+    carr_2?: any;
+    carr_3?: any;
     [key: string]: any; // Esto es una firma de índice
   }
 
@@ -132,6 +137,9 @@ export const modProspectoAction = async (formData: any): Promise<void> => {
     Matriculador,
     aut_corr,
     aut_tel,
+    carr_1,
+    carr_2,
+    carr_3,
   } = Object.fromEntries(formData);
 
   const updatedFields: UpdatedFields = {
@@ -143,6 +151,9 @@ export const modProspectoAction = async (formData: any): Promise<void> => {
     Matriculador,
     aut_corr,
     aut_tel,
+    carr_1,
+    carr_2,
+    carr_3,
   };
 
   Object.keys(updatedFields).forEach(
@@ -159,6 +170,7 @@ export const modProspectoAction = async (formData: any): Promise<void> => {
     console.log("Error");
     console.error(error);
   }
+  revalidatePath("/dashboard/prosp");
   redirect("/dashboard/prosp");
 };
 export const ingresarCarreraAction = async (formData: any): Promise<void> => {
@@ -181,7 +193,7 @@ export const ingresarCarreraAction = async (formData: any): Promise<void> => {
     carrera.id_carr = id_carr;
     carrera.nombre_carr = nombre_carr;
     carrera.cupos_di = cupos_di;
-    carrera.cupos_vesp = cupos_vesp;
+    carrera.cupos_vesp = cupos_vesp | 0;
     carrera.tipo = tipo;
     carrera.precio_mat = precio_mat;
 
@@ -194,12 +206,12 @@ export const ingresarCarreraAction = async (formData: any): Promise<void> => {
       !carrera.precio_mat
     ) {
         console.log('campos vacios')
-      return;
+      //return;
     }
 
     const { data, error } = await ingresarCarrera(carrera);
     if (data) {
-      console.log("Ingeso exitoso", data);
+      console.log("Ingreso exitoso", data);
     } else if (error) {
       console.log("error", error);
     }
@@ -413,3 +425,21 @@ export const borrarSeguimientoAction = async (formData: any): Promise<void> => {
   }
   redirect("/dashboard/seguimientos");
 };
+
+export const borrarListaEsperaAction = async (formData: any): Promise<void> => {
+  const { rut_pro_lista, id_carr_lista } = Object.fromEntries(formData);
+
+  try {
+    console.log("rut_pro_lista", rut_pro_lista);
+    console.log("id_carr_lista", id_carr_lista);
+    const { data, error } = await eliminarListaEspera(rut_pro_lista, id_carr_lista);
+    console.log("data", data);
+    console.log("error eliminar", error);
+    //revalidatepath no funciona por el momento
+  } catch (error) {
+    console.log("Error");
+    console.error(error);
+  }
+
+  
+}

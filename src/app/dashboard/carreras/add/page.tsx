@@ -21,11 +21,11 @@ const addCarrera = () => {
                 </select>
 
                 <button type="submit">Agregar</button>
-                {/*}<Link href="/dashboard/carreras">{*/}
-                <button type="button"className={styles.buttonCancel}>
-                    Cancelar
-              </button>
-                {/*}</form></Link>{*/}
+                <Link href="/dashboard/carreras">
+                    <button type="button"className={styles.buttonCancel}>
+                        Cancelar
+                </button>
+                </Link>
 
             </form>
         </div>
