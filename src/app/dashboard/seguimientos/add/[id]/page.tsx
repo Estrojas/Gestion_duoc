@@ -37,7 +37,6 @@ const addSeguimiento = async ({params} : {params: Params}) => {
                     <option value="No">No</option>
                 </select>
                 <input type="textarea" placeholder="Observaciones" name='observaciones'/>
-
                 <button type="submit">Agregar</button>
                 <Link href="/dashboard/prosp">
                     <button className={styles.buttonCancel}>

@@ -298,8 +298,8 @@ const supabase = createClient(supabaseUrl, supabaseKey);
     export async function obtenerAllCarreras(){
         const { data, error } = await supabase
         .from('Carreras')
-        //.select('*')
-        .select('id_carr, nombre_carr, cupos_di, cupos_vesp, precio_mat, mat_di, mat_vesp, tipo')
+        .select('*')
+        //.select('id_carr, nombre_carr, cupos_di, cupos_vesp, precio_mat, mat_di, mat_vesp, tipo')
         if(data){
           return data;
         }else{

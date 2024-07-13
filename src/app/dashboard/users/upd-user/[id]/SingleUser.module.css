@@ -41,13 +41,24 @@
     margin: 10px 0px;
 }
 .form button{
-    width: 45%;
+    width: 100%;
     padding: 20px;
     background-color: teal;
     color: var(--text);
     border: none;
     cursor: pointer;
     border-radius: 5px;
+}
+.form .buttonCancel{
+    width: 100%;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: crimson;
+    color: var(--text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
 }
 .titulo{
     color: var(--text);

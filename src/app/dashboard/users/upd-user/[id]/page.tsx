@@ -2,6 +2,7 @@ import { User } from "@/app/ModelosDatos/User";
 import styles from "./SingleUser.module.css";
 import { obtenerProspecto, obtenerUser } from "@/app/Connection/SupabaseClient";
 import { modUserAction } from "@/app/Connection/accion";
+import Link from "next/link";
 
 interface Params {
     id: string;
@@ -32,6 +33,11 @@ const SingleUser = async ({params} : {params: Params}) => {
                         <option value="Administrativo">Administrativo</option>
                     </select>
                     <button type="submit">Modificar</button>
+                    <Link  href="/dashboard/users">
+                        <button type="button"className={styles.buttonCancel}>
+                            Cancelar
+                        </button>
+                    </Link>
                 </form>
             </div>
         </div>

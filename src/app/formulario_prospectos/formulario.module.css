@@ -58,7 +58,7 @@
     border-radius: 5px;
 }*/
 .form button{
-    width: 45%;
+    width: 100%;
     padding: 30px;
     background-color: teal;
     color: var(--text);
@@ -108,4 +108,5 @@
     border-radius: 5px;
     cursor: pointer;
     margin: 10px;
+    width: 100%;
 }
