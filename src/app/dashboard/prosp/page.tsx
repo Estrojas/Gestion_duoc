@@ -6,6 +6,7 @@ import Pagination from '@/components/Pagination/Pagination';
 import { obtener} from '@/app/Connection/SupabaseClient';
 import { useEffect, useState } from 'react';
 import { borrarProspectoAction } from '@/app/Connection/accion';
+import WhatsAppButton from './whatsapp';
 
 interface Props {
     searchParams: any; // Reemplaza 'any' con el tipo real de 'searchParams'
@@ -69,6 +70,7 @@ const ProspPage = /*async*/ ({searchParams}: Props) => {
                                 <Link href={`/dashboard/send-email/${Prospecto.rut}`}>
                                     <button className={`${styles.button} ${styles.email}`}>Email</button>
                                 </Link>
+                                <WhatsAppButton phoneNumber={Prospecto.telefono} />
                                 <Link href={`/dashboard/seguimientos/add/${Prospecto.rut}`}>
                                     <button className={`${styles.button} ${styles.seguimiento}`}>Crear Seguimiento</button>
                                 </Link>
